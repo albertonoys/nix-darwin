@@ -1,0 +1,37 @@
+{
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
+  "schemes" : [
+    {
+      "pointer" : {
+        "speed" : 0.4628,
+        "acceleration" : 0
+      },
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "speed" : {
+          "vertical" : 0
+        },
+        "distance" : {
+          "vertical" : 5
+        },
+        "acceleration" : {
+          "vertical" : 1
+        }
+      },
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productName" : "Model O Wireless",
+          "serialNumber" : "000000000000",
+          "productID" : "0x2022",
+          "vendorID" : "0x258a"
+        }
+      },
+      "buttons" : {
+        "universalBackForward" : true
+      }
+    }
+  ]
+}
