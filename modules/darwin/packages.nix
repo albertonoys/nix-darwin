@@ -8,7 +8,7 @@ shared-packages ++ [
   stats
   raycast
   yt-dlp
-  # kicad
+  kicad
   tio
   act
   appcleaner
