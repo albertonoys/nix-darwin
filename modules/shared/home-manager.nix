@@ -30,8 +30,8 @@ let name = "Alberto Noys";
         ll = "eza --all --color=always --long --git --icons=always";
         lg = "lazygit";
         gs = "git status";
-        # vim = "nvim";
-        # v = "nvim";
+        vim = "nvim";
+        v = "nvim";
     };
 
     plugins = [
@@ -56,6 +56,7 @@ let name = "Alberto Noys";
       # Define variables for directories
       # export PATH=$HOME/.local/share/bin:$PATH
 
+      export PATH=/opt/homebrew/bin:$PATH
       export EDITOR="vim"
 
       # nix shortcuts
