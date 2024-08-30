@@ -1,0 +1,5 @@
+# Run gitleaks detect on push
+pre-commit:
+  commands:
+    gitleaks-detect:
+      run: gitleaks detect -v --follow-symlinks {all_files}

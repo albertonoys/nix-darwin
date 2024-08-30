@@ -23,6 +23,8 @@ with pkgs; [
   delta
   neovim
   gitleaks
+  lefthook
+  bun
   # zsh-autosuggestions
   # zsh-syntax-highlighting
 
