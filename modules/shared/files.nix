@@ -36,8 +36,8 @@ in
     text = builtins.readFile ./config/kitty/kitty.conf;
   };
 
-  "${xdg_configHome}/kitty/theme.conf" = {
-    text = builtins.readFile ./config/kitty/theme.conf;
+  "${xdg_configHome}/kitty/ayu_mirage.conf" = {
+    text = builtins.readFile ./config/kitty/ayu_mirage.conf;
   };
 
 
