@@ -23,6 +23,7 @@ with pkgs; [
   delta
   neovim
   bitwarden-cli
+  gitleaks
   # zsh-autosuggestions
   # zsh-syntax-highlighting
 
