@@ -63,6 +63,7 @@ let user = "noys"; in
 
       dock = {
         autohide = true;
+        autohide-time-modifier = 0.0;
         show-recents = false;
         launchanim = true;
         orientation = "right";

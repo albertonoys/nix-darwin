@@ -51,6 +51,7 @@ in
   local.dock.entries = [
     { path = "${pkgs.kitty}/Applications/Kitty.app/"; }
     { path = "/Applications/Google Chrome.app/"; }
+    { path = "/Applications/Zen Browser.app/"; }
     { path = "/System/Applications/Mail.app/"; }
     { path = "/Applications/Cursor.app/"; }
     { path = "/Applications/Zed.app/"; }
