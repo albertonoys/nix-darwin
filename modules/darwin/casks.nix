@@ -7,4 +7,5 @@ _:
   "middleclick"
   "google-chrome"
   "zed"
+  "kicad"
 ]
