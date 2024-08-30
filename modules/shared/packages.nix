@@ -22,6 +22,7 @@ with pkgs; [
   thefuck
   delta
   neovim
+  bitwarden-cli
   # zsh-autosuggestions
   # zsh-syntax-highlighting
 
