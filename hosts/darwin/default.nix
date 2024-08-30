@@ -18,17 +18,8 @@ let user = "noys"; in
     package = pkgs.nix;
     settings.trusted-users = [ "@admin" "${user}" ];
 
-    # gc = {
-    #   user = "root";
-    #   automatic = true;
-    #   interval = { Weekday = 0; Hour = 2; Minute = 0; };
-    #   options = "--delete-older-than 30d";
-    # };
-
     # Turn this on to make command line easier
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings.experimental-features = "nix-command flakes";
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
@@ -58,7 +49,6 @@ let user = "noys"; in
         "com.apple.keyboard.fnState" = false;
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.sound.beep.volume" = 0.6;
-        # "com.apple.sound.beep.feedback" = 0;
       };
 
       dock = {
@@ -68,8 +58,6 @@ let user = "noys"; in
         launchanim = true;
         orientation = "right";
         tilesize = 48;
-        # persistent-apps = [];
-        # wvous-bl-corner;
       };
 
       finder = {
@@ -84,11 +72,10 @@ let user = "noys"; in
         Clicking = true;
         TrackpadThreeFingerDrag = true;
       };
-    };
 
-    # keyboard = {
-    # enableKeyMapping = true;
-      # remapCapsLockToControl = true;
-    # };
+      screencapture = {
+        location = "~/Pictures/Screenshots";
+      };
+    };
   };
 }

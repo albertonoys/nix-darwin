@@ -76,11 +76,6 @@
 
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (system: let
         user = "noys";
-        # pkgsDarwin = import (fetchTarball {
-        #   url = "https://github.com/NixOS/nixpkgs/archive/2e92235aa591abc613504fde2546d6f78b18c0cd.tar.gz";
-        # }) {
-        #   system = system;
-        # };
       in
         darwin.lib.darwinSystem {
           inherit system;
@@ -105,13 +100,6 @@
               };
             }
             ./hosts/darwin
-            # {
-            #   nixpkgs.overlays = [
-            #     (final: prev: {
-            #       swift = pkgsDarwin.swift;
-            #     })
-            #   ];
-            # }
           ];
         }
       );

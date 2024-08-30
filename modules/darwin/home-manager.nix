@@ -10,7 +10,6 @@ in
    ./dock
   ];
 
-  # It me
   users.users.${user} = {
     name = "${user}";
     home = "/Users/${user}";
