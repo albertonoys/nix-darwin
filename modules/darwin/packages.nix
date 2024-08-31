@@ -11,4 +11,7 @@ shared-packages ++ [
   tio
   act
   appcleaner
+  python39
+  python39Packages.virtualenv
+  maccy
 ]
