@@ -17,14 +17,14 @@ case "$SYSTEM" in
     FLAKE_TARGET="aarch64-linux"
     ;;
   *)
-    echo -e "${RED}Unsupported architecture: $SYSTEM${NC}"
+    printf "${RED}Unsupported architecture: %s${NC}\n" "$SYSTEM"
     exit 1
     ;;
 esac
 
-echo -e "${YELLOW}Starting...${NC}"
+printf "%sStarting...%s\n" "$YELLOW" "$NC"
 
 # We pass SSH from user to root so root can download secrets from our private Github
-sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK /run/current-system/sw/bin/nixos-rebuild switch --flake .#$FLAKE_TARGET $@
+sudo SSH_AUTH_SOCK="$SSH_AUTH_SOCK" /run/current-system/sw/bin/nixos-rebuild switch --flake .#$FLAKE_TARGET "$@"
 
-echo -e "${GREEN}Switch to new generation complete!${NC}"
+printf "%sSwitch to new generation complete!%s\n" "$GREEN" "$NC"
