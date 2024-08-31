@@ -1,8 +1,25 @@
 { pkgs }:
 
-with pkgs;
-let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
-shared-packages ++ [
+with pkgs; [
+  delta
+  gdu
+  gitleaks
+  kitty
+  lefthook
+  ncdu
+  tlrc
+  gum
+
+  # Applications
+  discord
+  mpv
+  vscode
+
+  # Fonts
+  jetbrains-mono
+  meslo-lgs-nf
+
+  # MacOS
   rectangle
   stats
   yt-dlp
