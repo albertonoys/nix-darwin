@@ -6,7 +6,6 @@ shared-packages ++ [
   dockutil
   rectangle
   stats
-  raycast
   yt-dlp
   tio
   act
@@ -14,4 +13,5 @@ shared-packages ++ [
   python39
   python39Packages.virtualenv
   maccy
+  stats
 ]

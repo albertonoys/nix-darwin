@@ -57,6 +57,7 @@ let name = "Alberto Noys";
       # export PATH=$HOME/.local/share/bin:$PATH
 
       export PATH=/opt/homebrew/bin:$PATH
+      export PATH="/usr/local/bin:$PATH"
       export EDITOR="vim"
 
       # nix shortcuts

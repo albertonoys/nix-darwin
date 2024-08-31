@@ -8,4 +8,5 @@ _:
   "google-chrome"
   "zed"
   "kicad"
+  "raycast"
 ]
