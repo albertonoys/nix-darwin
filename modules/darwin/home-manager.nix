@@ -17,6 +17,7 @@ in
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
     brews = pkgs.callPackage ./brews.nix {};
+
     masApps = {
       "WhatsApp Messenger" = 310633997;
     };

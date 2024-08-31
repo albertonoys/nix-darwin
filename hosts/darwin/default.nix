@@ -13,8 +13,6 @@ let user = "noys"; in
   # Auto upgrade nix package and the daemon service.
   services = {
     nix-daemon.enable = true;
-    skhd.enable = true;
-    # yabai.enable = true;
   };
 
   # Setup user, packages, programs

@@ -1,5 +1,4 @@
 _ :
 [
   "bitwarden-cli"
-  "mas"
 ]
