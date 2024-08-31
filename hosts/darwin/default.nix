@@ -11,19 +11,20 @@ let user = "noys"; in
   ];
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  services = {
+    nix-daemon.enable = true;
+    skhd.enable = true;
+    # yabai.enable = true;
+  };
 
   # Setup user, packages, programs
   nix = {
     package = pkgs.nix;
-    settings.trusted-users = [ "@admin" "${user}" ];
-
-    # Turn this on to make command line easier
-    settings.experimental-features = "nix-command flakes";
+    settings = {
+      trusted-users = [ "@admin" "${user}" ];
+      experimental-features = "nix-command flakes";
+    };
   };
-
-  # Turn off NIX_PATH warnings now that we're using flakes
-  system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
@@ -33,6 +34,8 @@ let user = "noys"; in
 
   system = {
     stateVersion = 4;
+    # Turn off NIX_PATH warnings now that we're using flakes
+    checks.verifyNixPath = false;
 
     defaults = {
       NSGlobalDomain = {
@@ -52,6 +55,7 @@ let user = "noys"; in
       };
 
       dock = {
+        mru-spaces = false;
         autohide = true;
         autohide-time-modifier = 0.0;
         show-recents = false;
@@ -73,9 +77,9 @@ let user = "noys"; in
         TrackpadThreeFingerDrag = true;
       };
 
-      screencapture = {
-        location = "~/Pictures/Screenshots";
-      };
+      screencapture.location = "~/Pictures/Screenshots";
+      loginwindow.LoginwindowText = "You should not be here.";
+      screensaver.askForPasswordDelay = 10;
     };
   };
 }

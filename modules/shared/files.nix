@@ -28,18 +28,11 @@ let
 
 in
 {
-  "${xdg_configHome}/btop/btop.conf" = {
-    text = builtins.readFile ./config/btop/btop.conf;
-  };
+  "${xdg_configHome}/btop/btop.conf".source = ./config/btop/btop.conf;
 
-  "${xdg_configHome}/kitty/kitty.conf" = {
-    text = builtins.readFile ./config/kitty/kitty.conf;
-  };
+  "${xdg_configHome}/kitty/kitty.conf".source = ./config/kitty/kitty.conf;
 
-  "${xdg_configHome}/kitty/ayu_mirage.conf" = {
-    text = builtins.readFile ./config/kitty/ayu_mirage.conf;
-  };
-
+  "${xdg_configHome}/kitty/ayu_mirage.conf".source = ./config/kitty/ayu_mirage.conf;
 
   "${xdg_configHome}/zed/settings.json" = {
     text = ''

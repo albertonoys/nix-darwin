@@ -14,4 +14,5 @@ shared-packages ++ [
   python39Packages.virtualenv
   maccy
   stats
+  skhd
 ]
