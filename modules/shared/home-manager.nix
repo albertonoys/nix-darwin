@@ -4,17 +4,22 @@ let name = "Alberto Noys";
     user = "noys";
     email = "albertonoys@gmail.com"; in
 {
-  # atuin = {
-  #   enable = true;
-  # }
-
-  # fish = {
-  #   enable = true:
-  # }
-
   home-manager.enable = true;
-
   btop.enable = true;
+  bat.enable = true;
+  eza.enable = true;
+  fastfetch.enable = true;
+  fd.enable = true;
+  fish.enable = true;
+  fzf.enable = true;
+  gh.enable = true;
+  jq.enable = true;
+  lazygit.enable = true;
+  neovim.enable = true;
+  ripgrep.enable = true;
+  thefuck.enable = true;
+  zoxide.enable = true;
+  bun.enable = true;
 
   # Shared shell configuration
   zsh = {
