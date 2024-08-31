@@ -12,9 +12,9 @@ let name = "Alberto Noys";
   #   enable = true:
   # }
 
-  btop = {
-    enable = true;
-  };
+  home-manager.enable = true;
+
+  btop.enable = true;
 
   # Shared shell configuration
   zsh = {
