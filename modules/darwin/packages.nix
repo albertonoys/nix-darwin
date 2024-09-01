@@ -12,7 +12,7 @@ with pkgs; [
 
   # Applications
   discord
-  mpv
+  # mpv
   vscode
 
   # Fonts

@@ -2,7 +2,7 @@
   description = "Starter Configuration for MacOS";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:leiserfg/nixpkgs/fix-kitty-nerfont";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
       url = "github:LnL7/nix-darwin/master";
@@ -27,8 +27,8 @@
 
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs } @inputs:
     let
-
       system = "aarch64-darwin";
+      user = "noys";
 
       devShell = let pkgs = nixpkgs.legacyPackages.${system}; in {
         default = with pkgs; mkShell {
@@ -64,7 +64,7 @@
 
       darwinConfigurations.${system} = darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = inputs;
+        specialArgs = inputs // { inherit user; };
         modules = [
           home-manager.darwinModules.home-manager
           {
