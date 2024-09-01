@@ -14,6 +14,7 @@ with pkgs; [
   discord
   # mpv
   vscode
+  openjdk17
 
   # Fonts
   jetbrains-mono

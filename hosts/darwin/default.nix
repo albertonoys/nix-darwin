@@ -29,7 +29,6 @@
     };
   };
 
-  # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
   ] ++ (import ../../modules/darwin/packages.nix { inherit pkgs; });
 

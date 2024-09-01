@@ -9,4 +9,5 @@ _:
   "zed"
   "kicad"
   "raycast"
+  "keyclu"
 ]

@@ -94,6 +94,9 @@ in
             export PATH="/usr/local/bin:$PATH"
             export EDITOR="vim"
 
+            export JAVA_HOME="${pkgs.openjdk17}/libexec/openjdk";
+            export PATH=$JAVA_HOME/bin:$PATH
+
             # nix shortcuts
             shell() {
                 nix-shell '<nixpkgs>' -A "$1"
