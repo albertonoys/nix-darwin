@@ -63,8 +63,8 @@ in
           shellAliases = {
             cd = "z";
             ".." = "cd ..";
-            ls = "eza --all --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions";
-            ll = "eza --all --color=always --long --git --icons=always";
+            ls = "eza --oneline --all --group-directories-first";
+            ll = "eza --long --all --sort=modified --group-directories-first --header --smart-group --time-style=relative --git --color=always --icons=always";
             lg = "lazygit";
             gs = "git status";
             vim = "nvim";
