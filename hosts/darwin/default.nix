@@ -1,13 +1,9 @@
 { config, pkgs, ... }:
 
-let user = "noys"; in
-
 {
-
   imports = [
     ../../modules/darwin/home-manager.nix
-    ../../modules/shared
-    ../../modules/shared/cachix
+    # ../../modules/darwin/cachix
   ];
 
   # Auto upgrade nix package and the daemon service.
@@ -19,14 +15,23 @@ let user = "noys"; in
   nix = {
     package = pkgs.nix;
     settings = {
-      trusted-users = [ "@admin" "${user}" ];
+      trusted-users = [ "@admin" "noys" ];
       experimental-features = "nix-command flakes";
+    };
+  };
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
+      allowInsecure = false;
+      allowUnsupportedSystem = true;
     };
   };
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  ] ++ (import ../../modules/darwin/packages.nix { inherit pkgs; });
 
   security.pam.enableSudoTouchIdAuth = true;
 
