@@ -2,7 +2,6 @@
 
 let
   xdg_configHome = "${config.users.users.${user}.home}/.config";
-  dotfilesDir = "../../dotfiles";
 
   # Function to recursively read files from a directory
   readNvimConfig = dir:
@@ -13,7 +12,7 @@ let
     ) (builtins.readDir dir);
 
   # Read all Neovim config files
-  nvimConfig = readNvimConfig ./config/nvim;
+  nvimConfig = readNvimConfig ../../dotfiles/nvim;
 
   # Function to flatten the nested attribute set
   flattenAttrs = prefix: attrs:
@@ -30,31 +29,11 @@ let
 in
 {
   # MacOS
-  "${xdg_configHome}/linearmouse/linearmouse.json".source = ./config/linearmouse/linearmouse.json;
+  "${xdg_configHome}/linearmouse/linearmouse.json".source = ../../dotfiles/linearmouse/linearmouse.json;
 
   "${xdg_configHome}/btop/btop.conf".source = ../../dotfiles/btop/btop.conf;
-  "${xdg_configHome}/kitty/kitty.conf".source = ./config/kitty/kitty.conf;
-  "${xdg_configHome}/kitty/ayu_mirage.conf".source = ./config/kitty/ayu_mirage.conf;
+  "${xdg_configHome}/kitty/kitty.conf".source = ../../dotfiles/kitty/kitty.conf;
+  "${xdg_configHome}/kitty/ayu_mirage.conf".source = ../../dotfiles/kitty/ayu_mirage.conf;
 
-  "${xdg_configHome}/zed/settings.json" = {
-    text = ''
-      {
-        "base_keymap": "JetBrains",
-        "ui_font_family": "Menlo",
-        "ui_font_size": 14,
-        "buffer_font_size": 14,
-        "buffer_font_family": "Menlo",
-        "buffer_font_features": {
-          "calt": true
-        },
-        "confirm_quit": true,
-        "autosave": "on_focus_change",
-        "telemetry": {
-          "diagnostics": true,
-          "metrics": false
-        },
-        "preferred_line_length": 120
-      }
-    '';
-  };
+  "${xdg_configHome}/zed/settings.json".source = ../../dotfiles/zed/settings.json;
 } // flatNvimConfig
