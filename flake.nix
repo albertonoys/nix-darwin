@@ -2,6 +2,7 @@
   description = "Starter Configuration for MacOS";
 
   inputs = {
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:leiserfg/nixpkgs/fix-kitty-nerfont";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
