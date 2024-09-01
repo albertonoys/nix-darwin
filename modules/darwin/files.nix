@@ -32,8 +32,7 @@ in
   # MacOS
   "${xdg_configHome}/linearmouse/linearmouse.json".source = ./config/linearmouse/linearmouse.json;
 
-  # "${xdg_configHome}/btop/btop.conf".source = ./config/btop/btop.conf;
-  "${xdg_configHome}/btop/btop.conf".source = "${dotfilesDir}/btop/btop.conf";
+  "${xdg_configHome}/btop/btop.conf".source = ../../dotfiles/btop/btop.conf;
   "${xdg_configHome}/kitty/kitty.conf".source = ./config/kitty/kitty.conf;
   "${xdg_configHome}/kitty/ayu_mirage.conf".source = ./config/kitty/ayu_mirage.conf;
 
