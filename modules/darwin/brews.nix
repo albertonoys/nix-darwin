@@ -1,4 +1,0 @@
-_ :
-[
-  "bitwarden-cli"
-]

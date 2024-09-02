@@ -10,4 +10,5 @@ _:
   "kicad"
   "raycast"
   "keyclu"
+  "orcaslicer"
 ]

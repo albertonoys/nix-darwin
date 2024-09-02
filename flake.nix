@@ -1,20 +1,34 @@
 {
-  description = "Starter Configuration for MacOS";
+  description = "Nix-darwin configuration";
 
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:leiserfg/nixpkgs/fix-kitty-nerfont";
-    home-manager.url = "github:nix-community/home-manager";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+
+    # home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fish-tide = {
+      url = "github:IlanCosman/tide/v6.1.1";
+      flake = false;
+    };
+    tldr-pages = {
+      url = "github:tldr-pages/tldr";
+      flake = false;
+    };
+
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
-    };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -24,9 +38,24 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
   };
 
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs } @inputs:
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    flake-utils,
+    home-manager,
+    darwin,
+    nix-homebrew,
+    homebrew-core,
+    homebrew-cask,
+    homebrew-bundle,
+    ...
+  }:
     let
       system = "aarch64-darwin";
       user = "noys";

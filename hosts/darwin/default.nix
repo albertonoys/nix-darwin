@@ -3,7 +3,6 @@
 {
   imports = [
     ../../modules/darwin/home-manager.nix
-    # ../../modules/darwin/cachix
   ];
 
   # Auto upgrade nix package and the daemon service.

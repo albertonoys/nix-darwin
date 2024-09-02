@@ -1,8 +1,14 @@
-{ config, pkgs, lib, home-manager, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  home-manager,
+  ...
+}:
 
 let
   user = "noys";
-  dotfiles = import ./files.nix { inherit user config pkgs; };
   name = "Alberto Noys";
   email = "albertonoys@gmail.com";
 in
@@ -11,14 +17,15 @@ in
     name = "${user}";
     home = "/Users/${user}";
     isHidden = false;
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
-    brews = pkgs.callPackage ./brews.nix {};
-
+    brews = [
+      "bitwarden-cli"
+    ];
     masApps = {
       "WhatsApp Messenger" = 310633997;
     };
@@ -31,8 +38,11 @@ in
       home = {
         enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ./packages.nix {};
-        file = dotfiles;
-
+        file.".config" = {
+          source = ../../dotfiles;
+          recursive = true;
+          executable = true;
+        };
         stateVersion = "23.11";
       };
       programs = {
@@ -42,7 +52,6 @@ in
         eza.enable = true;
         fastfetch.enable = true;
         fd.enable = true;
-        fish.enable = true;
         fzf.enable = true;
         gh.enable = true;
         jq.enable = true;
@@ -53,7 +62,77 @@ in
         zoxide.enable = true;
         bun.enable = true;
 
-        # Shared shell configuration
+        fish = {
+          enable = true;
+          shellAliases = {
+            cd = "z";
+            ".." = "cd ..";
+            rld = "source ~/.config/fish/config.fish";
+            aliasList = "alias | bat --paging=never --wrap=never --language=fish && abbr | bat --paging=never --wrap=never --language=fish";
+            ding = "tput bel";
+
+            ls = "eza --oneline --all --group-directories-first";
+            ll = "eza --long --all --sort=modified --group-directories-first --header --smart-group --time-style=relative --git --color=always --icons=always";
+            tree = "eza --tree --all --icons=auto";
+
+            "gc." = "git checkout .";
+            gd = "git diff | bat --language diff";
+            lg = "lazygit";
+            gg = "lazygit";
+            gs = "git status";
+
+            vim = "nvim";
+            v = "nvim";
+            top = "btop";
+          };
+          functions = {
+            fish_greeting = lib.mkDefault "";
+            bind_bang = ''
+              switch (commandline -t)
+              case "!"
+                commandline -t $history[1]; commandline -f repaint
+              case "*"
+                commandline -i !
+              end
+            '';
+            bind_dollar = ''
+              switch (commandline -t)
+              case "!"
+                commandline -t ""
+                commandline -f history-token-search-backward
+              case "*"
+                commandline -i '$'
+              end
+            '';
+            fish_user_key_bindings = ''
+              bind ! bind_bang
+              bind '$' bind_dollar
+            '';
+            hf = ''
+              eval (history | fzf -i)
+            '';
+          };
+          plugins = [
+            {
+              name = "tide";
+              src = pkgs.fetchFromGitHub {
+                owner = "IlanCosman";
+                repo = "tide";
+                rev = "a34b0c2809f665e854d6813dd4b052c1b32a32b4";
+                sha256 = "sha256-ZyEk/WoxdX5Fr2kXRERQS1U1QHH3oVSyBQvlwYnEYyc=";
+              };
+            }
+            {
+              name = "done";
+              src = pkgs.fishPlugins.done;
+            }
+            {
+              name = "bass";
+              src = pkgs.fishPlugins.bass;
+            }
+          ];
+        };
+
         zsh = {
           enable = true;
           autocd = true;
