@@ -1,6 +1,4 @@
-_:
-
-[
+_: [
   "cursor"
   "linearmouse"
   "hiddenbar"

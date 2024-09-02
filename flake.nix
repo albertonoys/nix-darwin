@@ -55,67 +55,68 @@
     homebrew-cask,
     homebrew-bundle,
     ...
-  }:
-    let
-      system = "aarch64-darwin";
-      user = "noys";
+  }: let
+    system = "aarch64-darwin";
+    user = "noys";
 
-      devShell = let pkgs = nixpkgs.legacyPackages.${system}; in {
-        default = with pkgs; mkShell {
-          nativeBuildInputs = with pkgs; [ bashInteractive git ];
+    devShell = let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      default = with pkgs;
+        mkShell {
+          nativeBuildInputs = with pkgs; [bashInteractive git];
           shellHook = with pkgs; ''
             export EDITOR=vim
           '';
         };
-      };
-
-      mkApp = scriptName: {
-        type = "app";
-        program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-          #!/usr/bin/env bash
-          PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-          echo "Running ${scriptName} for ${system}"
-          exec ${self}/apps/${scriptName}
-        '')}/bin/${scriptName}";
-      };
-    in
-    {
-      devShells.${system} = devShell;
-
-      apps.${system} = {
-        "apply" = mkApp "apply";
-        "build" = mkApp "build";
-        "build-switch" = mkApp "build-switch";
-        "copy-keys" = mkApp "copy-keys";
-        "create-keys" = mkApp "create-keys";
-        "check-keys" = mkApp "check-keys";
-        "rollback" = mkApp "rollback";
-      };
-
-      darwinConfigurations.${system} = darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = inputs // { inherit user; };
-        modules = [
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.backupFileExtension = "nixbckp";
-          }
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              inherit user;
-              enable = true;
-              taps = {
-                "homebrew/homebrew-core" = homebrew-core;
-                "homebrew/homebrew-cask" = homebrew-cask;
-                "homebrew/homebrew-bundle" = homebrew-bundle;
-              };
-              mutableTaps = false;
-              autoMigrate = true;
-            };
-          }
-          ./hosts/darwin
-        ];
-      };
     };
+
+    mkApp = scriptName: {
+      type = "app";
+      program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
+        #!/usr/bin/env bash
+        PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
+        echo "Running ${scriptName} for ${system}"
+        exec ${self}/apps/${scriptName}
+      '')}/bin/${scriptName}";
+    };
+  in {
+    devShells.${system} = devShell;
+
+    apps.${system} = {
+      "apply" = mkApp "apply";
+      "build" = mkApp "build";
+      "build-switch" = mkApp "build-switch";
+      "copy-keys" = mkApp "copy-keys";
+      "create-keys" = mkApp "create-keys";
+      "check-keys" = mkApp "check-keys";
+      "rollback" = mkApp "rollback";
+    };
+
+    darwinConfigurations.${system} = darwin.lib.darwinSystem {
+      inherit system;
+      specialArgs = inputs // {inherit user;};
+      modules = [
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.backupFileExtension = "nixbckp";
+        }
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            inherit user;
+            enable = true;
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+              "homebrew/homebrew-bundle" = homebrew-bundle;
+            };
+            mutableTaps = false;
+            autoMigrate = true;
+          };
+        }
+        ./hosts/darwin
+      ];
+    };
+  };
 }

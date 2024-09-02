@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 with pkgs; [
   delta
   gdu
@@ -9,6 +8,7 @@ with pkgs; [
   ncdu
   tlrc
   gum
+  alejandra
 
   # Applications
   discord

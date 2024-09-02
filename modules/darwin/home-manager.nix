@@ -5,14 +5,11 @@
   inputs,
   home-manager,
   ...
-}:
-
-let
+}: let
   user = "noys";
   name = "Alberto Noys";
   email = "albertonoys@gmail.com";
-in
-{
+in {
   users.users.${user} = {
     name = "${user}";
     home = "/Users/${user}";
@@ -34,7 +31,12 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    users.${user} = { pkgs, config, lib, ... }:{
+    users.${user} = {
+      pkgs,
+      config,
+      lib,
+      ...
+    }: {
       home = {
         enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ./packages.nix {};
@@ -192,7 +194,7 @@ in
 
         git = {
           enable = true;
-          ignores = [ "*.swp" ];
+          ignores = ["*.swp"];
           userName = name;
           userEmail = email;
           lfs = {
@@ -211,8 +213,8 @@ in
 
         vim = {
           enable = true;
-          plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-startify vim-tmux-navigator ];
-          settings = { ignorecase = true; };
+          plugins = with pkgs.vimPlugins; [vim-airline vim-airline-themes vim-startify vim-tmux-navigator];
+          settings = {ignorecase = true;};
           extraConfig = ''
             "" General
             set number
@@ -344,7 +346,7 @@ in
             {
               plugin = power-theme;
               extraConfig = ''
-                 set -g @tmux_power_theme 'gold'
+                set -g @tmux_power_theme 'gold'
               '';
             }
             {

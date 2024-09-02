@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../modules/darwin/home-manager.nix
   ];
@@ -14,7 +16,7 @@
   nix = {
     package = pkgs.nix;
     settings = {
-      trusted-users = [ "@admin" "noys" ];
+      trusted-users = ["@admin" "noys"];
       experimental-features = "nix-command flakes";
     };
   };
@@ -28,8 +30,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-  ] ++ (import ../../modules/darwin/packages.nix { inherit pkgs; });
+  environment.systemPackages = with pkgs; (import ../../modules/darwin/packages.nix {inherit pkgs;});
 
   security.pam.enableSudoTouchIdAuth = true;
 
