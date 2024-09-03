@@ -67,7 +67,6 @@ in {
         fish = {
           enable = true;
           shellAliases = {
-            cd = "z";
             ".." = "cd ..";
             rld = "source ~/.config/fish/config.fish";
             aliasList = "alias | bat --paging=never --wrap=never --language=fish && abbr | bat --paging=never --wrap=never --language=fish";

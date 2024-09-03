@@ -42,6 +42,10 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+    kitty-icon = {
+      url = "github:k0nserv/kitty-icon";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
@@ -54,6 +58,7 @@
     homebrew-core,
     homebrew-cask,
     homebrew-bundle,
+    kitty-icon,
     ...
   }: let
     system = "aarch64-darwin";
@@ -80,6 +85,23 @@
         exec ${self}/apps/${scriptName}
       '')}/bin/${scriptName}";
     };
+
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [
+        (final: prev: {
+          kitty = prev.kitty.overrideAttrs (oldAttrs: {
+            postInstall =
+              (oldAttrs.postInstall or "")
+              + ''
+                mkdir -p $out/Applications/kitty.app/Contents/Resources
+                cp -f ${inputs.kitty-icon}/build/neue_outrun.icns $out/Applications/kitty.app/Contents/Resources/kitty.icns
+              '';
+          });
+        })
+      ];
+    };
   in {
     devShells.${system} = devShell;
 
@@ -95,11 +117,12 @@
 
     darwinConfigurations.${system} = darwin.lib.darwinSystem {
       inherit system;
-      specialArgs = inputs // {inherit user;};
+      specialArgs = inputs // {inherit user pkgs;};
       modules = [
         home-manager.darwinModules.home-manager
         {
           home-manager.backupFileExtension = "nixbckp";
+          nixpkgs.config.allowUnfree = true;
         }
         nix-homebrew.darwinModules.nix-homebrew
         {

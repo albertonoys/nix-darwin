@@ -160,6 +160,22 @@
         "type": "github"
       }
     },
+    "kitty-icon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696432667,
+        "narHash": "sha256-AXU1KOXaEiAMTkgkR+yVc8g4FZq8TqXj9imswCHhNKc=",
+        "owner": "k0nserv",
+        "repo": "kitty-icon",
+        "rev": "7f631a61bcbdfb268cdf1c97992a5c077beec9d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "k0nserv",
+        "repo": "kitty-icon",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -255,6 +271,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "kitty-icon": "kitty-icon",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
