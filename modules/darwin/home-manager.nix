@@ -64,6 +64,19 @@ in {
         zoxide.enable = true;
         bun.enable = true;
 
+        atuin = {
+          enable = true;
+          settings = {
+            dialect = "uk";
+            style = "compact";
+            inline_height = 20;
+            show_preview = true;
+            enter_accept = true;
+            sync.records = true;
+            dotfiles.enabled = false;
+          };
+        };
+
         fish = {
           enable = true;
           shellAliases = {
