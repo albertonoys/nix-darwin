@@ -9,4 +9,11 @@ _: [
   "raycast"
   "keyclu"
   "orcaslicer"
+  "docker"
+  "stats"
+  "rectangle"
+  "maccy"
+  "discord"
+  "visual-studio-code"
+  "hazel"
 ]

@@ -9,11 +9,10 @@ with pkgs; [
   tlrc
   gum
   alejandra
+  direnv
+  just
 
   # Applications
-  discord
-  # mpv
-  vscode
   openjdk17
 
   # Fonts
@@ -21,14 +20,11 @@ with pkgs; [
   meslo-lgs-nf
 
   # MacOS
-  rectangle
-  stats
   yt-dlp
   tio
   act
   appcleaner
   python39
   python39Packages.virtualenv
-  maccy
   skhd
 ]

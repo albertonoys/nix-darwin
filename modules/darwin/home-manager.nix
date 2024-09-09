@@ -190,6 +190,9 @@ in {
             export JAVA_HOME="${pkgs.openjdk17}/libexec/openjdk";
             export PATH=$JAVA_HOME/bin:$PATH
 
+            # direnv
+            eval "$(direnv hook zsh)"
+
             # nix shortcuts
             shell() {
                 nix-shell '<nixpkgs>' -A "$1"
