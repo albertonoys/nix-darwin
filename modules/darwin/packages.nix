@@ -14,7 +14,7 @@ with pkgs; [
 
   # Applications
   openjdk17
-
+  todoist
   # Fonts
   jetbrains-mono
   meslo-lgs-nf

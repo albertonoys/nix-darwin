@@ -16,4 +16,7 @@ _: [
   "discord"
   "visual-studio-code"
   "hazel"
+  "todoist"
+  "jordanbaird-ice"
+  "glance-chamburr"
 ]

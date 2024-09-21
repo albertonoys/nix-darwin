@@ -74,14 +74,18 @@
         ShowPathbar = true;
       };
 
-      trackpad = {
-        Clicking = true;
-        TrackpadThreeFingerDrag = true;
-      };
+      # trackpad = {
+      #   Clicking = true;
+      #   TrackpadThreeFingerDrag = true;
+      # };
 
       screencapture.location = "~/Pictures/Screenshots";
       loginwindow.LoginwindowText = "You should not be here.";
       screensaver.askForPasswordDelay = 10;
     };
   };
+
+  programs.fish.enable = true;
+  environment.shells = with pkgs; [ fish ];
+  environment.loginShell = pkgs.fish;
 }
