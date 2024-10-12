@@ -19,4 +19,5 @@ _: [
   "todoist"
   "jordanbaird-ice"
   "glance-chamburr"
+  "obsidian"
 ]
