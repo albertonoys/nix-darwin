@@ -20,4 +20,5 @@ _: [
   "jordanbaird-ice"
   "glance-chamburr"
   "obsidian"
+  "sonic-pi"
 ]

@@ -20,6 +20,11 @@ in {
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+      upgrade = true;
+    };
     brews = [
       "bitwarden-cli"
     ];
