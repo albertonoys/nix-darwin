@@ -104,6 +104,33 @@ in {
             v = "nvim";
             top = "btop";
           };
+          shellInit = ''
+            if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+              source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+            end
+            if test -f /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+              source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+            end
+
+            set -x PATH /opt/homebrew/bin $PATH
+            set -x PATH /usr/local/bin $PATH
+            set -x EDITOR "nvim"
+
+            set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
+            set -x PATH $JAVA_HOME/bin $PATH
+
+            # direnv
+            direnv hook fish | source
+
+            # nix shortcuts
+            function shell
+              nix-shell '<nixpkgs>' -A $argv[1]
+            end
+
+            # ---- Zoxide (better cd) ----
+            zoxide init fish | source
+
+          '';
           functions = {
             fish_greeting = lib.mkDefault "";
             bind_bang = ''
@@ -357,7 +384,7 @@ in {
         };
 
         tmux = {
-          enable = true;
+          enable = false;
           plugins = with pkgs.tmuxPlugins; [
             vim-tmux-navigator
             sensible
