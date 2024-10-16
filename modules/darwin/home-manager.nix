@@ -22,7 +22,7 @@ in {
     casks = pkgs.callPackage ./casks.nix {};
     onActivation = {
       autoUpdate = true;
-      cleanup = "uninstall";
+      cleanup = "zap";
       upgrade = true;
     };
     brews = [
@@ -36,6 +36,8 @@ in {
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "nixbckp";
     users.${user} = {
       pkgs,
       config,
@@ -68,6 +70,7 @@ in {
         thefuck.enable = true;
         zoxide.enable = true;
         bun.enable = true;
+        # direnv.enable = true;
 
         atuin = {
           enable = true;
@@ -112,7 +115,14 @@ in {
               source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
             end
 
-            set -x PATH /opt/homebrew/bin $PATH
+            # Setup Homebrew
+            eval (/opt/homebrew/bin/brew shellenv)
+
+            # Ensure Homebrew binaries are in PATH
+            fish_add_path /opt/homebrew/bin
+            fish_add_path /opt/homebrew/sbin
+
+            # set -x PATH /opt/homebrew/bin $PATH
             set -x PATH /usr/local/bin $PATH
             set -x EDITOR "nvim"
 
@@ -215,8 +225,13 @@ in {
               . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
             fi
 
-            export PATH=/opt/homebrew/bin:$PATH
-            export PATH="/usr/local/bin:$PATH"
+            # Setup Homebrew
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+
+            # Ensure Homebrew binaries are in PATH
+            export PATH="/opt/homebrew/bin:$PATH"
+            export PATH="/opt/homebrew/sbin:$PATH"
+
             export EDITOR="vim"
 
             export JAVA_HOME="${pkgs.openjdk17}/libexec/openjdk";

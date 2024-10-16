@@ -22,7 +22,7 @@ with pkgs; [
   # MacOS
   yt-dlp
   tio
-  act
+  # act
   appcleaner
   python39
   python39Packages.virtualenv
