@@ -3,13 +3,13 @@ with pkgs; [
   delta
   gdu
   gitleaks
-  kitty
+  # kitty
   lefthook
   ncdu
   tlrc
   gum
   alejandra
-  direnv
+  # direnv
   just
 
   # Applications

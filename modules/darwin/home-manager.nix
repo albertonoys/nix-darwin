@@ -20,11 +20,11 @@ in {
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "zap";
-      upgrade = true;
-    };
+    # onActivation = {
+    #   autoUpdate = true;
+    #   cleanup = "none";
+    #   upgrade = true;
+    # };
     brews = [
       "bitwarden-cli"
     ];
@@ -36,7 +36,6 @@ in {
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    useUserPackages = true;
     backupFileExtension = "nixbckp";
     users.${user} = {
       pkgs,
@@ -70,7 +69,7 @@ in {
         thefuck.enable = true;
         zoxide.enable = true;
         bun.enable = true;
-        # direnv.enable = true;
+        direnv.enable = true;
 
         atuin = {
           enable = true;
@@ -130,7 +129,7 @@ in {
             set -x PATH $JAVA_HOME/bin $PATH
 
             # direnv
-            direnv hook fish | source
+            # direnv hook fish | source
 
             # nix shortcuts
             function shell

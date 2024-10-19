@@ -2,12 +2,10 @@
   description = "Nix-darwin configuration";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:leiserfg/nixpkgs/fix-kitty-nerfont";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:leiserfg/nixpkgs/fix-kitty-nerfont";
     flake-utils.url = "github:numtide/flake-utils";
 
-    # home-manager.url = "github:nix-community/home-manager";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -134,7 +132,7 @@
               "homebrew/homebrew-cask" = homebrew-cask;
               "homebrew/homebrew-bundle" = homebrew-bundle;
             };
-            mutableTaps = false;
+            mutableTaps = true;
             autoMigrate = true;
           };
         }

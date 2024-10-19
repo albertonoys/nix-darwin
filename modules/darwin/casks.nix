@@ -21,4 +21,5 @@ _: [
   "glance-chamburr"
   "obsidian"
   "sonic-pi"
+  "rambox"
 ]
