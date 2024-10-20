@@ -19,23 +19,27 @@ in {
 
   homebrew = {
     enable = true;
+    global.autoUpdate = true;
+    brewPrefix = "/opt/homebrew/bin";
+    onActivation = {
+      cleanup = "zap";
+      autoUpdate = true;
+      upgrade = true;
+    };
     casks = pkgs.callPackage ./casks.nix {};
-    # onActivation = {
-    #   autoUpdate = true;
-    #   cleanup = "none";
-    #   upgrade = true;
-    # };
     brews = [
       "bitwarden-cli"
     ];
     masApps = {
       "WhatsApp Messenger" = 310633997;
     };
+    taps = builtins.attrNames config.nix-homebrew.taps;
   };
 
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+    # useUserPackages = true;
     backupFileExtension = "nixbckp";
     users.${user} = {
       pkgs,
@@ -44,14 +48,13 @@ in {
       ...
     }: {
       home = {
-        enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ./packages.nix {};
         file.".config" = {
           source = ../../dotfiles;
           recursive = true;
           executable = true;
         };
-        stateVersion = "23.11";
+        stateVersion = "24.05";
       };
       programs = {
         home-manager.enable = true;
@@ -89,11 +92,11 @@ in {
           shellAliases = {
             ".." = "cd ..";
             rld = "source ~/.config/fish/config.fish";
-            aliasList = "alias | bat --paging=never --wrap=never --language=fish && abbr | bat --paging=never --wrap=never --language=fish";
+            aliasList = "alias | bat --paging=never --wrap=never --language=fish";
             ding = "tput bel";
 
             ls = "eza --oneline --all --group-directories-first";
-            ll = "eza --long --all --sort=modified --group-directories-first --header --smart-group --time-style=relative --git --color=always --icons=always";
+            ll = "eza --long --all --sort=modified --group-directories-first --header --smart-group --git --color=always --icons=always";
             tree = "eza --tree --all --icons=auto";
 
             "gc." = "git checkout .";
@@ -114,31 +117,22 @@ in {
               source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
             end
 
+            # Setup editor
+            set -x EDITOR "nvim"
+
             # Setup Homebrew
             eval (/opt/homebrew/bin/brew shellenv)
 
             # Ensure Homebrew binaries are in PATH
-            fish_add_path /opt/homebrew/bin
-            fish_add_path /opt/homebrew/sbin
+            # fish_add_path /opt/homebrew/bin
+            # fish_add_path /opt/homebrew/sbin
 
-            # set -x PATH /opt/homebrew/bin $PATH
-            set -x PATH /usr/local/bin $PATH
-            set -x EDITOR "nvim"
+            # Ensure local binaries are in PATH
+            # fish_add_path /usr/local/bin
 
+            # Setup Java
             set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
-            set -x PATH $JAVA_HOME/bin $PATH
-
-            # direnv
-            # direnv hook fish | source
-
-            # nix shortcuts
-            function shell
-              nix-shell '<nixpkgs>' -A $argv[1]
-            end
-
-            # ---- Zoxide (better cd) ----
-            zoxide init fish | source
-
+            fish_add_path $JAVA_HOME/bin
           '';
           functions = {
             fish_greeting = lib.mkDefault "";
@@ -165,6 +159,9 @@ in {
             '';
             hf = ''
               eval (history | fzf -i)
+            '';
+            shell = ''
+              nix-shell --packages $argv
             '';
           };
           plugins = [
@@ -225,11 +222,11 @@ in {
             fi
 
             # Setup Homebrew
-            eval "$(/opt/homebrew/bin/brew shellenv)"
+            # eval "$(/opt/homebrew/bin/brew shellenv)"
 
             # Ensure Homebrew binaries are in PATH
-            export PATH="/opt/homebrew/bin:$PATH"
-            export PATH="/opt/homebrew/sbin:$PATH"
+            # export PATH="/opt/homebrew/bin:$PATH"
+            # export PATH="/opt/homebrew/sbin:$PATH"
 
             export EDITOR="vim"
 

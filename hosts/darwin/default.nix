@@ -1,6 +1,9 @@
+# nix-darwin configuration
+# https://mynixos.com/nix-darwin/options
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -8,9 +11,7 @@
   ];
 
   # Auto upgrade nix package and the daemon service.
-  services = {
-    nix-daemon.enable = true;
-  };
+  services.nix-daemon.enable = true;
 
   # Setup user, packages, programs
   nix = {
@@ -35,7 +36,7 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   system = {
-    stateVersion = 4;
+    stateVersion = 5;
     # Turn off NIX_PATH warnings now that we're using flakes
     checks.verifyNixPath = false;
 
@@ -83,9 +84,19 @@
       loginwindow.LoginwindowText = "You should not be here.";
       screensaver.askForPasswordDelay = 10;
     };
+    # activationScripts.extraUserActivation.text = lib.mkOrder 1501 (lib.concatStringsSep "\n" (lib.mapAttrsToList (prefix: d:
+    #   if d.enable
+    #   then ''
+    #     # sudo chown -R ${config.nix-homebrew.user} ${prefix}/bin
+    #     # sudo chgrp -R ${config.nix-homebrew.group} ${prefix}/bin
+    #     sudo chown -R ${config.nix-homebrew.user} ${prefix}
+    #     sudo chgrp -R ${config.nix-homebrew.group} ${prefix}
+    #   ''
+    #   else "")
+    # config.nix-homebrew.prefixes));
   };
 
   programs.fish.enable = true;
-  environment.shells = with pkgs; [ fish ];
+  environment.shells = with pkgs; [fish];
   environment.loginShell = pkgs.fish;
 }

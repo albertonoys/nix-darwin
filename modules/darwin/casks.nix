@@ -22,4 +22,5 @@ _: [
   "obsidian"
   "sonic-pi"
   "rambox"
+  "pearcleaner"
 ]

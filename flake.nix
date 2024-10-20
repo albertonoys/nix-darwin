@@ -2,19 +2,18 @@
   description = "Nix-darwin configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:leiserfg/nixpkgs/fix-kitty-nerfont";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpks-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     fish-tide = {
       url = "github:IlanCosman/tide/v6.1.1";
       flake = false;
@@ -25,7 +24,7 @@
     };
 
     nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
+      url = "github:zhaofengli/nix-homebrew";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     homebrew-core = {
@@ -119,21 +118,22 @@
       modules = [
         home-manager.darwinModules.home-manager
         {
-          home-manager.backupFileExtension = "nixbckp";
           nixpkgs.config.allowUnfree = true;
         }
         nix-homebrew.darwinModules.nix-homebrew
         {
           nix-homebrew = {
-            inherit user;
             enable = true;
+            enableRosetta = true;
+            user = "noys";
+            group = "admin";
             taps = {
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
               "homebrew/homebrew-bundle" = homebrew-bundle;
             };
-            mutableTaps = true;
-            autoMigrate = true;
+            mutableTaps = false;
+            autoMigrate = false;
           };
         }
         ./hosts/darwin

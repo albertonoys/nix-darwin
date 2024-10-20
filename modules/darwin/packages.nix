@@ -5,16 +5,18 @@ with pkgs; [
   gitleaks
   # kitty
   lefthook
-  ncdu
+  # ncdu_1
   tlrc
   gum
   alejandra
   # direnv
   just
+  hyperfine
 
   # Applications
   openjdk17
   todoist
+
   # Fonts
   jetbrains-mono
   meslo-lgs-nf
@@ -22,7 +24,6 @@ with pkgs; [
   # MacOS
   yt-dlp
   tio
-  # act
   appcleaner
   python39
   python39Packages.virtualenv
