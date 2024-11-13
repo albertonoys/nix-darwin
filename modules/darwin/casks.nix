@@ -1,10 +1,13 @@
 _: let
   # Helper function to create a cask with default greedy = true
-  makeCask = name: { inherit name; greedy = true; };
+  makeCask = name: {
+    inherit name;
+    greedy = true;
+  };
 
   # Special cases with additional arguments
   specialCasks = {
-    middleclick = { args = { no_quarantine = true; }; };
+    middleclick = {args = {no_quarantine = true;};};
   };
 
   # List of simple cask names
@@ -34,7 +37,8 @@ _: let
     "kicad"
   ];
 in
-# Convert basic casks to full config and combine with special cases
-(map makeCask basicCasks) ++ [
-  (makeCask "middleclick" // specialCasks.middleclick)
-]
+  # Convert basic casks to full config and combine with special cases
+  (map makeCask basicCasks)
+  ++ [
+    (makeCask "middleclick" // specialCasks.middleclick)
+  ]
