@@ -20,6 +20,7 @@ in {
   homebrew = {
     enable = true;
     global.autoUpdate = true;
+    global.brewfile = true;
     brewPrefix = "/opt/homebrew/bin";
     onActivation = {
       cleanup = "zap";
@@ -57,22 +58,24 @@ in {
         stateVersion = "24.05";
       };
       programs = {
-        home-manager.enable = true;
-        btop.enable = true;
         bat.enable = true;
+        bottom.enable = true;
+        btop.enable = true;
+        bun.enable = true;
+        direnv.enable = true;
         eza.enable = true;
         fastfetch.enable = true;
         fd.enable = true;
+        freetube.enable = true;
         fzf.enable = true;
         gh.enable = true;
+        home-manager.enable = true;
         jq.enable = true;
         lazygit.enable = true;
         neovim.enable = true;
         ripgrep.enable = true;
         thefuck.enable = true;
         zoxide.enable = true;
-        bun.enable = true;
-        direnv.enable = true;
 
         atuin = {
           enable = true;
@@ -176,11 +179,11 @@ in {
             }
             {
               name = "done";
-              src = pkgs.fishPlugins.done;
+              src = pkgs.fishPlugins.done.src;
             }
             {
               name = "bass";
-              src = pkgs.fishPlugins.bass;
+              src = pkgs.fishPlugins.bass.src;
             }
           ];
         };

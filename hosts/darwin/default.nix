@@ -98,5 +98,4 @@
 
   programs.fish.enable = true;
   environment.shells = with pkgs; [fish];
-  environment.loginShell = pkgs.fish;
 }

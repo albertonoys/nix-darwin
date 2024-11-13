@@ -3,23 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpks-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
 
-    darwin = {
+    nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fish-tide = {
       url = "github:IlanCosman/tide/v6.1.1";
-      flake = false;
-    };
-    tldr-pages = {
-      url = "github:tldr-pages/tldr";
       flake = false;
     };
 
@@ -50,7 +46,7 @@
     nixpkgs,
     flake-utils,
     home-manager,
-    darwin,
+    nix-darwin,
     nix-homebrew,
     homebrew-core,
     homebrew-cask,
@@ -112,7 +108,7 @@
       "rollback" = mkApp "rollback";
     };
 
-    darwinConfigurations.${system} = darwin.lib.darwinSystem {
+    darwinConfigurations.${system} = nix-darwin.lib.darwinSystem {
       inherit system;
       specialArgs = inputs // {inherit user pkgs;};
       modules = [
