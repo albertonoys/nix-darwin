@@ -12,6 +12,9 @@ with pkgs; [
   # direnv
   just
   hyperfine
+  # pyocd
+  pipx
+  stlink-tool
 
   # Applications
   openjdk17
