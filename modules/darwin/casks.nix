@@ -35,6 +35,7 @@ _: let
     "rambox"
     "docker"
     "kicad"
+    "ghostty"
   ];
 in
   # Convert basic casks to full config and combine with special cases
