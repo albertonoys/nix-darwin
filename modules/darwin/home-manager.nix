@@ -66,7 +66,6 @@ in {
         eza.enable = true;
         fastfetch.enable = true;
         fd.enable = true;
-        freetube.enable = true;
         fzf.enable = true;
         gh.enable = true;
         home-manager.enable = true;

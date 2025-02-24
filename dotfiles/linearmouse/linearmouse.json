@@ -3,30 +3,25 @@
   "schemes" : [
     {
       "pointer" : {
-        "speed" : 0.4628,
-        "acceleration" : 0
+        "speed" : 0.0748,
+        "disableAcceleration" : true,
+        "acceleration" : 0.9883
       },
       "scrolling" : {
-        "reverse" : {
-          "vertical" : true
-        },
-        "speed" : {
-          "vertical" : 0
-        },
-        "distance" : {
-          "vertical" : 3
-        },
         "acceleration" : {
           "vertical" : 1
+        },
+        "reverse" : {
+          "vertical" : true
         }
       },
       "if" : {
         "device" : {
+          "vendorID" : "0x258a",
           "category" : "mouse",
-          "productName" : "Model O Wireless",
           "serialNumber" : "000000000000",
-          "productID" : "0x2022",
-          "vendorID" : "0x258a"
+          "productName" : "Model O Wireless",
+          "productID" : "0x2022"
         }
       },
       "buttons" : {

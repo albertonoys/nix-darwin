@@ -1,5 +1,6 @@
 {pkgs}:
 with pkgs; [
+  fish
   delta
   gdu
   gitleaks
@@ -28,7 +29,7 @@ with pkgs; [
   yt-dlp
   tio
   appcleaner
-  python39
-  python39Packages.virtualenv
+  # python39
+  # python39Packages.virtualenv
   skhd
 ]
