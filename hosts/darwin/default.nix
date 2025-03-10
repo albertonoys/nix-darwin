@@ -11,15 +11,16 @@
   ];
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true;
 
   # Setup user, packages, programs
   nix = {
-    package = pkgs.nix;
-    settings = {
-      trusted-users = ["@admin" "noys"];
-      experimental-features = "nix-command flakes";
-    };
+    enable = false;
+    # package = pkgs.nix;
+    # settings = {
+    #   trusted-users = ["@admin" "noys"];
+    #   experimental-features = "nix-command flakes";
+    # };
   };
 
   nixpkgs = {
@@ -98,4 +99,5 @@
 
   programs.fish.enable = true;
   environment.shells = with pkgs; [fish];
+  # environment.variables."SSL_CERT_FILE" = "/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt";
 }

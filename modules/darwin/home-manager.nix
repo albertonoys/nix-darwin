@@ -33,6 +33,7 @@ in {
     ];
     masApps = {
       "WhatsApp Messenger" = 310633997;
+      "TickTick:To-Do List, Calendar" = 966085870;
     };
     taps = builtins.attrNames config.nix-homebrew.taps;
   };
