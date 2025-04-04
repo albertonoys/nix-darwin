@@ -4,16 +4,12 @@ with pkgs; [
   delta
   gdu
   gitleaks
-  # kitty
   lefthook
-  # ncdu_1
   tlrc
   gum
   alejandra
-  # direnv
   just
   hyperfine
-  # pyocd
   pipx
   stlink-tool
 
@@ -29,7 +25,5 @@ with pkgs; [
   yt-dlp
   tio
   appcleaner
-  # python39
-  # python39Packages.virtualenv
   skhd
 ]

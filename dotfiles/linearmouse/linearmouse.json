@@ -1,49 +1,72 @@
 {
-  "$schema": "https:\/\/schema.linearmouse.app\/0.10.0",
-  "schemes": [
+  "schemes" : [
     {
-      "if": [
+      "if" : [
         {
-          "device": {
-            "productName": "Model O Wireless",
-            "category": "mouse",
-            "productID": "0x2022",
-            "vendorID": "0x258a",
-            "serialNumber": "000000000000"
+          "device" : {
+            "productID" : "0x2022",
+            "vendorID" : "0x258a",
+            "category" : "mouse",
+            "productName" : "Model O Wireless",
+            "serialNumber" : "000000000000"
           }
         },
         {
-          "device": {
-            "productName": "Model O Wireless",
-            "category": "mouse",
-            "productID": "0x2011",
-            "vendorID": "0x258a",
-            "serialNumber": "000000000000"
+          "device" : {
+            "category" : "mouse",
+            "productName" : "Model O Wireless",
+            "productID" : "0x2011",
+            "vendorID" : "0x258a",
+            "serialNumber" : "000000000000"
           }
         }
       ],
-      "buttons": {
-        "universalBackForward": true
+      "pointer" : {
+        "speed" : 0.0748,
+        "acceleration" : 0.9883,
+        "disableAcceleration" : true
       },
-      "pointer": {
-        "speed": 0.0748,
-        "acceleration": 0.9883,
-        "disableAcceleration": true
+      "scrolling" : {
+        "distance" : {
+          "vertical" : "auto"
+        },
+        "reverse" : {
+          "vertical" : false
+        },
+        "acceleration" : {
+          "vertical" : 2.1
+        },
+        "speed" : {
+          "vertical" : 12.75
+        }
       },
-      "scrolling": {
-        "distance": {
-          "vertical": "auto"
+      "buttons" : {
+        "universalBackForward" : true
+      }
+    },
+    {
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
         },
-        "speed": {
-          "vertical": 12.75
+        "distance" : {
+          "vertical" : "auto"
         },
-        "acceleration": {
-          "vertical": 2.1
+        "speed" : {
+          "vertical" : 0
         },
-        "reverse": {
-          "vertical": false
+        "acceleration" : 1
+      },
+      "if" : {
+        "device" : {
+          "vendorID" : "0x258a",
+          "category" : "mouse",
+          "productID" : "0x2022",
+          "productName" : "Model O Wireless",
+          "serialNumber" : "000000000000"
         }
       }
     }
-  ]
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
 }

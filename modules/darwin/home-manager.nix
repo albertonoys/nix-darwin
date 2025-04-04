@@ -14,7 +14,7 @@ in {
     name = "${user}";
     home = "/Users/${user}";
     isHidden = false;
-    shell = pkgs.fish;
+    shell = pkgs.lib.mkForce "/Users/${user}/.nix-profile/bin/fish";
   };
 
   homebrew = {
@@ -30,6 +30,8 @@ in {
     casks = pkgs.callPackage ./casks.nix {};
     brews = [
       "bitwarden-cli"
+      "ffmpeg"
+      "topgrade"
     ];
     masApps = {
       "WhatsApp Messenger" = 310633997;

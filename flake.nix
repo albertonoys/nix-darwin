@@ -3,12 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nix-darwin.url = "github:LnL7/nix-darwin/master";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
+      # url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
@@ -78,21 +81,23 @@
       '')}/bin/${scriptName}";
     };
 
+    overlays = [
+      (final: prev: {
+        kitty = prev.kitty.overrideAttrs (oldAttrs: {
+          postInstall =
+            (oldAttrs.postInstall or "")
+            + ''
+              mkdir -p $out/Applications/kitty.app/Contents/Resources
+              cp -f ${inputs.kitty-icon}/build/neue_outrun.icns $out/Applications/kitty.app/Contents/Resources/kitty.icns
+            '';
+        });
+      })
+    ];
+
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [
-        (final: prev: {
-          kitty = prev.kitty.overrideAttrs (oldAttrs: {
-            postInstall =
-              (oldAttrs.postInstall or "")
-              + ''
-                mkdir -p $out/Applications/kitty.app/Contents/Resources
-                cp -f ${inputs.kitty-icon}/build/neue_outrun.icns $out/Applications/kitty.app/Contents/Resources/kitty.icns
-              '';
-          });
-        })
-      ];
+      overlays = overlays;
     };
   in {
     devShells.${system} = devShell;

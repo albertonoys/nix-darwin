@@ -32,10 +32,10 @@ _: let
     "rectangle"
     "visual-studio-code"
     "sonic-pi"
-    "rambox"
     "docker"
     "kicad"
     "ghostty"
+    "synology-drive"
   ];
 in
   # Convert basic casks to full config and combine with special cases
