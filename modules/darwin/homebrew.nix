@@ -36,10 +36,17 @@ _: let
     "kicad"
     "ghostty"
     "synology-drive"
+    "calibre"
   ];
-in
-  # Convert basic casks to full config and combine with special cases
-  (map makeCask basicCasks)
-  ++ [
-    (makeCask "middleclick" // specialCasks.middleclick)
-  ]
+
+  # List of brews
+  brews = [
+    "bitwarden-cli"
+    "ffmpeg"
+    "topgrade"
+    "pnpm"
+  ];
+in {
+  casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];
+  brews = brews;
+}
