@@ -25,6 +25,9 @@
       vim = "nvim";
       v = "nvim";
       top = "btop";
+
+      nix-config = "cursor ~/repos/nix";
+      c = "cursor .";
     };
     shellInit = ''
       if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish

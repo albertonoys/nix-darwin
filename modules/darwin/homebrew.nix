@@ -37,6 +37,7 @@ _: let
     "ghostty"
     "synology-drive"
     "calibre"
+    "jellyfin-media-player"
   ];
 
   # List of brews
