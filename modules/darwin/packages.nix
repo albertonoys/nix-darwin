@@ -12,6 +12,11 @@ with pkgs; [
   hyperfine
   pipx
   stlink-tool
+  glow
+  aria2
+  caddy
+  just
+  git
 
   # Applications
   openjdk17

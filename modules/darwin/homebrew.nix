@@ -7,7 +7,7 @@ _: let
 
   # Special cases with additional arguments
   specialCasks = {
-    middleclick = {args = {no_quarantine = true;};};
+    middleclick = {args = {no_quarantine = false;};};
   };
 
   # List of simple cask names
@@ -32,12 +32,17 @@ _: let
     "rectangle"
     "visual-studio-code"
     "sonic-pi"
-    "docker"
     "kicad"
     "ghostty"
     "synology-drive"
     "calibre"
     "jellyfin-media-player"
+    "telegram"
+    "wireshark"
+    "localsend"
+    "legcord"
+    "orbstack"
+    "upscayl"
   ];
 
   # List of brews
@@ -46,6 +51,9 @@ _: let
     "ffmpeg"
     "topgrade"
     "pnpm"
+    "wget"
+    "curl"
+    "aria2"
   ];
 in {
   casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];

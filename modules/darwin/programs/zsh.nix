@@ -9,17 +9,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    shellAliases = {
-      cd = "z";
-      ".." = "cd ..";
-      ls = "eza --oneline --all --group-directories-first";
-      ll = "eza --long --all --sort=modified --group-directories-first --header --smart-group --time-style=relative --git --color=always --icons=always";
-      lg = "lazygit";
-      gs = "git status";
-      vim = "nvim";
-      v = "nvim";
-    };
-
     plugins = [
       {
         name = "powerlevel10k";
