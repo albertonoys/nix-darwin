@@ -1,6 +1,6 @@
 {
   name,
-  email,
+  useremail,
   ...
 }: {
   programs.git = {
@@ -10,7 +10,7 @@
       "**/.DS_Store"
     ];
     userName = name;
-    userEmail = email;
+    userEmail = useremail;
     lfs = {
       enable = true;
     };

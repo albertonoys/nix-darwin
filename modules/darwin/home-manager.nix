@@ -4,18 +4,25 @@
   lib,
   inputs,
   home-manager,
+  name,
+  useremail,
+  username,
+  hostname,
   ...
-}: let
-  user = "noys";
-  name = "Alberto Noys";
-  email = "albertonoys@gmail.com";
-in {
-  users.users.${user} = {
-    name = "${user}";
-    home = "/Users/${user}";
+}: {
+  users.users.${username} = {
+    name = "${username}";
+    home = "/Users/${username}";
     isHidden = false;
-    shell = pkgs.lib.mkForce "/Users/${user}/.nix-profile/bin/fish";
+    description = username;
+    # shell = pkgs.lib.mkForce "/Users/${username}/.nix-profile/bin/fish";
   };
+
+  nix.settings.trusted-users = [username];
+
+  networking.hostName = hostname;
+  networking.computerName = hostname;
+  system.defaults.smb.NetBIOSName = hostname;
 
   homebrew = {
     enable = true;
@@ -41,15 +48,16 @@ in {
     useGlobalPkgs = true;
     backupFileExtension = "nixbckp";
 
-    users.${user} = {
+    users.${username} = {
       pkgs,
       config,
       lib,
       ...
     }: {
       imports = [
+        ./programs/shell.nix
         ./programs/fish.nix
-        (import ./programs/git.nix {inherit name email;})
+        (import ./programs/git.nix {inherit name useremail;})
         ./programs/vim.nix
         ./programs/zsh.nix
       ];
@@ -60,7 +68,7 @@ in {
           recursive = true;
           executable = true;
         };
-        stateVersion = "24.05";
+        stateVersion = "24.11";
       };
       programs = {
         bat.enable = true;
@@ -80,6 +88,21 @@ in {
         ripgrep.enable = true;
         zoxide.enable = true;
 
+        yazi = {
+          enable = true;
+          settings = {
+            manager = {
+              show_hidden = true;
+              sort_dir_first = true;
+            };
+          };
+        };
+
+        skim = {
+          enable = true;
+          enableBashIntegration = true;
+        };
+
         atuin = {
           enable = true;
           settings = {
@@ -96,13 +119,13 @@ in {
         ssh = {
           enable = true;
           includes = [
-            "/Users/${user}/.ssh/config_external"
+            "/Users/${username}/.ssh/config_external"
           ];
           matchBlocks = {
             "github.com" = {
               identitiesOnly = true;
               identityFile = [
-                "/Users/${user}/.ssh/id_github"
+                "/Users/${username}/.ssh/id_github"
               ];
             };
           };
