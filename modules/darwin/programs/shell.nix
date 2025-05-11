@@ -19,7 +19,7 @@
     v = "nvim";
     top = "btop";
 
-    nix-config = "cursor ~/repos/nix";
-    c = "cursor .";
+    config-nix = "cursor ~/repos/nix &";
+    c = "cursor . &";
   };
 }
