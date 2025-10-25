@@ -17,6 +17,7 @@
     settings = {
       experimental-features = "nix-command flakes";
       auto-optimise-store = false;
+      download-buffer-size = 1073741824;
     };
   };
 
@@ -31,22 +32,22 @@
 
   environment.systemPackages = with pkgs; (import ../../modules/darwin/packages.nix {inherit pkgs;});
 
-  security.pam.enableSudoTouchIdAuth = true;
-  # security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system = {
     stateVersion = 5;
+    primaryUser = "noys";
     checks.verifyNixPath = false;
-    activationScripts.postUserActivation.text = ''
+    activationScripts.extraActivation.text = ''
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      sudo -u $primaryUser /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
     defaults = {
       menuExtraClock.Show24Hour = true;
       NSGlobalDomain = {
-        # If you press and hold certain keyboard keys when in a text area, the key’s character begins to repeat.
+        # If you press and hold certain keyboard keys when in a text area, the key's character begins to repeat.
         # This is very useful for vim users, they use `hjkl` to move cursor.
         # sets how long it takes before it starts repeating.
         InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
@@ -71,14 +72,16 @@
       dock = {
         mru-spaces = false;
         autohide = true;
-        autohide-time-modifier = 0.0;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 0.4;
         show-recents = false;
         launchanim = true;
         orientation = "right";
         tilesize = 48;
 
         wvous-tl-corner = 2; # top-left - Mission Control
-        # wvous-tr-corner = 13; # top-right - Lock Screen
+        # wvous-tr-corner = 13; # top-right - Lock screen
+        # wvous-tr-modifier = 1048576; # Require ⌘ to trigger lock screen
         wvous-bl-corner = 2; # bottom-left - Mission Control
         wvous-br-corner = 3; # bottom-right - Application Windows
       };
@@ -98,6 +101,7 @@
       #   Clicking = true;
       #   TrackpadRightClick = true;
       #   TrackpadThreeFingerDrag = true;
+      #   TrackpadThreeFingerTapGesture = 0;
       # };
 
       loginwindow = {
@@ -178,17 +182,10 @@
       font-awesome
 
       # nerdfonts
-      # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/pkgs/data/fonts/nerdfonts/shas.nix
-      (nerdfonts.override {
-        fonts = [
-          # symbols icon only
-          "NerdFontsSymbolsOnly"
-          # Characters
-          "FiraCode"
-          "JetBrainsMono"
-          "Iosevka"
-        ];
-      })
+      nerd-fonts.symbols-only
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.iosevka
     ];
   };
 }

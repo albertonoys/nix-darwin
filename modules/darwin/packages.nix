@@ -16,11 +16,7 @@ with pkgs; [
   aria2
   caddy
   just
-  git
-
-  # Applications
-  openjdk17
-  todoist
+  sd
 
   # Fonts
   jetbrains-mono
@@ -31,4 +27,20 @@ with pkgs; [
   tio
   appcleaner
   skhd
+
+  # Android tools
+  apktool
+  dex2jar
+  # openjdk17
+  # zulu17
+  ghidra
+
+  # Pentesting
+  dirbuster
+  nmap
+  ffuf
+  gobuster
+
+  # Radio
+  pv
 ]

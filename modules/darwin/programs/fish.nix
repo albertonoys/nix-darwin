@@ -21,9 +21,19 @@
       eval (/opt/homebrew/bin/brew shellenv)
 
       fish_add_path ~/.local/bin
+      fish_add_path ~/bin
+      fish_add_path ~/Library/Python/3.9/bin/
 
-      # Setup Java
-      set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
+      # Setup Java (prefer Homebrew JDK 17 if available, else fallback to Nix)
+      set -l brew_java_home ""
+      if type -q /usr/libexec/java_home
+        set brew_java_home (/usr/libexec/java_home -v 17 2>/dev/null)
+      end
+      if test -n "$brew_java_home"
+        set -x JAVA_HOME "$brew_java_home"
+      else
+        set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
+      end
       fish_add_path $JAVA_HOME/bin
     '';
     functions = {

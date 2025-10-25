@@ -72,9 +72,8 @@
       };
       programs = {
         bat.enable = true;
-        bottom.enable = true;
-        btop.enable = true;
         bun.enable = true;
+        codex.enable = true;
         direnv.enable = true;
         eza.enable = true;
         fastfetch.enable = true;
@@ -88,6 +87,14 @@
         ripgrep.enable = true;
         zoxide.enable = true;
 
+        btop = {
+          enable = true;
+          settings = {
+            color_theme = "tokyo-storm";
+            theme_background = false;
+          };
+        };
+
         yazi = {
           enable = true;
           settings = {
@@ -96,11 +103,6 @@
               sort_dir_first = true;
             };
           };
-        };
-
-        skim = {
-          enable = true;
-          enableBashIntegration = true;
         };
 
         atuin = {
@@ -113,21 +115,6 @@
             enter_accept = true;
             sync.records = true;
             dotfiles.enabled = false;
-          };
-        };
-
-        ssh = {
-          enable = true;
-          includes = [
-            "/Users/${username}/.ssh/config_external"
-          ];
-          matchBlocks = {
-            "github.com" = {
-              identitiesOnly = true;
-              identityFile = [
-                "/Users/${username}/.ssh/id_github"
-              ];
-            };
           };
         };
       };

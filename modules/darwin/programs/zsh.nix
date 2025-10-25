@@ -22,7 +22,7 @@
       }
     ];
 
-    initExtraFirst = ''
+    initContent = lib.mkBefore ''
       if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
         . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
@@ -30,8 +30,14 @@
 
       export EDITOR="vim"
 
-      export JAVA_HOME="${pkgs.openjdk17}/libexec/openjdk";
-      export PATH=$JAVA_HOME/bin:$PATH
+      # Prefer Homebrew JDK 17 when present; fallback to Nix openjdk17
+      if command -v /usr/libexec/java_home >/dev/null 2>&1; then
+        export JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null || echo "")
+      fi
+      if [ -z "$JAVA_HOME" ]; then
+        export JAVA_HOME="${pkgs.openjdk17}/libexec/openjdk"
+      fi
+      export PATH="$JAVA_HOME/bin:$PATH"
 
       # direnv
       eval "$(direnv hook zsh)"
