@@ -166,13 +166,8 @@
   programs.fish.enable = true;
   environment.variables.EDITOR = "nvim";
   environment.shells = [
-    pkgs.fish
+    "${pkgs.fish}/bin/fish"
   ];
-  # environment.shells = with pkgs; [
-  #   "${fish}/bin/fish"
-  #   "/run/current-system/sw/bin/fish"
-  #   "/Users/noys/.nix-profile/bin/fish"
-  # ];
 
   # Fonts
   fonts = {

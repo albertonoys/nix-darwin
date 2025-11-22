@@ -1,113 +1,69 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0",
+  "$schema": "https:\/\/schema.linearmouse.app\/0.10.2",
   "schemes" : [
     {
-      "pointer" : {
-        "acceleration" : 0.9883,
-        "speed" : 0.0748,
-        "disableAcceleration" : true
+      "buttons": {
+        "universalBackForward": true
       },
-      "if" : [
-        {
-          "device" : {
-            "category" : "mouse",
-            "serialNumber" : "000000000000",
-            "productName" : "Model O Wireless",
-            "vendorID" : "0x258a",
-            "productID" : "0x2022"
-          }
-        },
-        {
-          "device" : {
-            "serialNumber" : "000000000000",
-            "category" : "mouse",
-            "productName" : "Model O Wireless",
-            "vendorID" : "0x258a",
-            "productID" : "0x2011"
-          }
+      "if": {
+        "device": {
+          "category": "mouse",
+          "productID": "0x2022",
+          "productName": "Model O Wireless",
+          "serialNumber": "000000000000",
+          "vendorID": "0x258a"
         }
-      ],
-      "scrolling" : {
-        "distance" : {
-          "vertical" : "auto"
-        },
+      },
+      "pointer": {
+        "acceleration": 0.9883,
+        "disableAcceleration": true,
+        "speed": 0.0748
+      },
+      "scrolling": {
         "acceleration" : {
           "vertical" : 2.1
         },
+        "distance": {
+          "vertical": "auto"
+        },
         "reverse" : {
-          "vertical" : false
+          "vertical": true
         },
         "speed" : {
           "vertical" : 12.75
         }
-      },
-      "buttons" : {
-        "universalBackForward" : true
       }
     },
     {
+      "buttons" : {
+        "universalBackForward": true
+      },
       "if" : {
         "device" : {
           "category" : "mouse",
-          "vendorID" : "0x258a",
+          "productID": "0x2011",
           "productName" : "Model O Wireless",
           "serialNumber" : "000000000000",
-          "productID" : "0x2022"
+          "vendorID": "0x258a"
         }
       },
+      "pointer": {
+        "acceleration": 0.9883,
+        "disableAcceleration": true,
+        "speed": 0.0748
+      },
       "scrolling" : {
-        "reverse" : {
-          "vertical" : true
+        "acceleration": {
+          "vertical": 2.1
         },
         "distance" : {
           "vertical" : "auto"
         },
-        "speed" : {
-          "vertical" : 0
-        },
-        "acceleration" : 1
-      }
-    },
-    {
-      "if" : {
-        "device" : {
-          "productName" : "Model O Wireless",
-          "productID" : "0x2022",
-          "serialNumber" : "000000000000",
-          "vendorID" : "0x258a",
-          "category" : "mouse"
-        },
-        "app" : "net.kovidgoyal.kitty"
-      },
-      "scrolling" : {
-        "distance" : {
-          "vertical" : "auto"
+        "reverse": {
+          "vertical": true
         },
         "speed" : {
-          "vertical" : 0
-        },
-        "acceleration" : {
-          "vertical" : 0.5
-        }
-      }
-    },
-    {
-      "if" : {
-        "device" : {
-          "serialNumber" : "000000000000",
-          "productID" : "0x2022",
-          "vendorID" : "0x258a",
-          "productName" : "Model O Wireless",
-          "category" : "mouse"
-        },
-        "app" : "net.whatsapp.WhatsApp"
-      },
-      "scrolling" : {
-        "speed" : {
-          "vertical" : 10
-        },
-        "acceleration" : {
-          "vertical" : 1.6
+          "vertical": 12.75
         }
       }
     }

@@ -16,14 +16,12 @@ _: let
     "cursor" # Code editor
     "discord"
     "ghostty"
-    # "glance-chamburr" # Menu bar hidden bar
     "google-chrome"
-    "hiddenbar" # Menu bar hidden bar
     "iina" # Video player
     "jellyfin-media-player"
     "jordanbaird-ice" # Menu bar hidden bar
     "keyclu" # Keyboard shortcuts
-    # "kicad" # PCB design
+    "kicad" # PCB design
     "legcord" # Discord
     "linearmouse" # Mouse
     "localsend"
@@ -59,6 +57,7 @@ _: let
     "imagemagick"
     "taskell"
     "ocrmypdf"
+    "llama.cpp"
 
     # pdf squeeze deps
     "ghostscript"
@@ -71,20 +70,11 @@ _: let
     "iperf3"
     "socat"
     "docker"
-    "python@3.12"
     "gcc"
     "gfortran"
     "scipy"
     "pyenv"
     "uv"
-
-    # ntfs
-    "autoconf"
-    "automake"
-    "libtool"
-    "libgcrypt"
-    "pkg-config"
-    "gromgit/fuse/ntfs-3g-mac"
   ];
 in {
   casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];
