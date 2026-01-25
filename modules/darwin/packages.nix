@@ -33,7 +33,7 @@ with pkgs; [
   dex2jar
   # openjdk17
   # zulu17
-  ghidra
+  # ghidra
 
   # Pentesting
   dirbuster

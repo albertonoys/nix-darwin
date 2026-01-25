@@ -35,6 +35,14 @@
         set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
       end
       fish_add_path $JAVA_HOME/bin
+
+      # Zoxide (better cd)
+      if command -v zoxide > /dev/null
+        zoxide init fish | source
+      end
+
+      # Abbreviation: cd -> z (zoxide)
+      abbr -a cd z
     '';
     functions = {
       fish_greeting = lib.mkDefault "";
@@ -68,7 +76,19 @@
       nix-update = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        nix flake update && nix run .#build-switch && nix-collect-garbage --delete-older-than 3d
+        nix flake update && nix run .#build-switch
+        cd $current_dir
+      '';
+      nix-apply-config = ''
+        set -l current_dir (pwd)
+        cd ~/repos/nix
+        nix run .#build-switch-fast
+        cd $current_dir
+      '';
+      nix-clean = ''
+        set -l current_dir (pwd)
+        cd ~/repos/nix
+        nix-collect-garbage --delete-older-than 3d
         cd $current_dir
       '';
     };

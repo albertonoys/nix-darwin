@@ -79,14 +79,28 @@
         };
     };
 
-    mkApp = scriptName: {
+    mkApp = scriptName: let
+      scriptContent =
+        if scriptName == "apply"
+        then builtins.readFile ./apps/apply
+        else if scriptName == "build"
+        then builtins.readFile ./apps/build
+        else if scriptName == "build-switch"
+        then builtins.readFile ./apps/build-switch
+        else if scriptName == "build-switch-fast"
+        then builtins.readFile ./apps/build-switch-fast
+        else if scriptName == "copy-keys"
+        then builtins.readFile ./apps/copy-keys
+        else if scriptName == "create-keys"
+        then builtins.readFile ./apps/create-keys
+        else if scriptName == "check-keys"
+        then builtins.readFile ./apps/check-keys
+        else if scriptName == "rollback"
+        then builtins.readFile ./apps/rollback
+        else throw "Unknown script: ${scriptName}";
+    in {
       type = "app";
-      program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-        #!/usr/bin/env bash
-        PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-        echo "Running ${scriptName} for ${system}"
-        exec ${self}/apps/${scriptName}
-      '')}/bin/${scriptName}";
+      program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName scriptContent)}/bin/${scriptName}";
     };
 
     overlays = [
@@ -114,6 +128,7 @@
       "apply" = mkApp "apply";
       "build" = mkApp "build";
       "build-switch" = mkApp "build-switch";
+      "build-switch-fast" = mkApp "build-switch-fast";
       "copy-keys" = mkApp "copy-keys";
       "create-keys" = mkApp "create-keys";
       "check-keys" = mkApp "check-keys";

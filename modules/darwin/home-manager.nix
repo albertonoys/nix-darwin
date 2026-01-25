@@ -15,7 +15,7 @@
     home = "/Users/${username}";
     isHidden = false;
     description = username;
-    # shell = pkgs.lib.mkForce "/Users/${username}/.nix-profile/bin/fish";
+    shell = pkgs.lib.mkForce "/Users/${username}/.nix-profile/bin/fish";
   };
 
   nix.settings.trusted-users = [username];
@@ -31,15 +31,12 @@
     brewPrefix = "/opt/homebrew/bin";
     onActivation = {
       cleanup = "zap";
-      autoUpdate = true;
-      upgrade = true;
+      autoUpdate = builtins.getEnv "HOMEBREW_UPDATE" == "1";
+      upgrade = builtins.getEnv "HOMEBREW_UPGRADE" == "1";
     };
     casks = (pkgs.callPackage ./homebrew.nix {}).casks;
     brews = (pkgs.callPackage ./homebrew.nix {}).brews;
-    masApps = {
-      "WhatsApp Messenger" = 310633997;
-      "TickTick:To-Do List, Calendar" = 966085870;
-    };
+    # masApps = {};
     taps = builtins.attrNames config.nix-homebrew.taps;
   };
 

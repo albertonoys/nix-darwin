@@ -12,37 +12,44 @@ _: let
 
   # List of simple cask names
   basicCasks = [
-    "calibre"
-    "cursor" # Code editor
-    "discord"
+    # Essentials
     "ghostty"
+    "discord"
     "google-chrome"
     "iina" # Video player
-    "jellyfin-media-player"
-    "jordanbaird-ice" # Menu bar hidden bar
-    "keyclu" # Keyboard shortcuts
-    "kicad" # PCB design
-    "legcord" # Discord
     "linearmouse" # Mouse
     "localsend"
     "maccy" # Clipboard manager
     "obsidian"
-    "orbstack" # Docker
-    "orcaslicer" # 3D slicer (Slic3r)
     "pearcleaner" # Disk cleaner
     "raycast" # Launcher
     "rectangle" # Window manager
-    "sonic-pi" # Music
     "stats" # System monitor
-    "telegram"
     "todoist-app"
-    "upscayl" # Image upscaler
     "zed" # Code editor
     "tempbox"
     "latest"
-    "openmtp"
-    "mounty"
     "kitty"
+    "telegram"
+    "calibre"
+    "openscad@snapshot"
+
+    "openmtp"
+    "cursor" # Code editor
+    # "antigravity" # Code editor
+    "jellyfin-media-player"
+    "jordanbaird-ice" # Menu bar hidden bar
+    "keyclu" # Keyboard shortcuts
+    # "kicad" # PCB design
+    "legcord" # Discord
+    "orbstack" # Docker
+    "orcaslicer" # 3D slicer (Slic3r)
+    "sonic-pi" # Music
+    "upscayl" # Image upscaler
+    "mounty"
+    "balenaetcher"
+    "ticktick"
+    "whatsapp"
   ];
 
   # List of brews
@@ -58,6 +65,10 @@ _: let
     "taskell"
     "ocrmypdf"
     "llama.cpp"
+    "esphome"
+    "fx-upscale"
+    "libxmp"
+    "libxmp-lite"
 
     # pdf squeeze deps
     "ghostscript"
@@ -75,6 +86,8 @@ _: let
     "scipy"
     "pyenv"
     "uv"
+    "hashcat"
+    "hcxtools"
   ];
 in {
   casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];

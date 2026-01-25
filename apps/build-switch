@@ -8,6 +8,8 @@ SYSTEM_TYPE="aarch64-darwin"
 FLAKE_SYSTEM="darwinConfigurations.${SYSTEM_TYPE}.system"
 
 export NIXPKGS_ALLOW_UNFREE=1
+export HOMEBREW_UPDATE=1
+export HOMEBREW_UPGRADE=1
 
 echo "${YELLOW}Starting build...${NC}"
 nix --extra-experimental-features 'nix-command flakes' build .#$FLAKE_SYSTEM "$@"
