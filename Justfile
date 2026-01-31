@@ -1,45 +1,14 @@
 hostname := "nebula"
 
+# Most used nix commands
+mod nix
+
 # List all the just commands
+[private]
 default:
-  @just --list
-
-############################################################################
-#
-#  nix related commands
-#
-############################################################################
-
-alias up := upgrade
-
-# Update all the flake inputs
-[group('nix')]
-update:
-  nix flake update
-
-# .#build-switch
-[group('nix')]
-switch:
-    nix run .#build-switch
-
-# Only apply config changes, no updating
-[group('nix')]
-apply:
-    nix run .#build-switch-fast
-
-# Update flake && .#build-switch && gc
-[group('nix')]
-upgrade:
-    @just update && just switch && just gc
-
-# Garbage collect all unused nix store entries
-[group('nix')]
-gc:
-  # garbage collect all unused nix store entries(system-wide)
-  sudo nix-collect-garbage --delete-older-than 3d
-  # garbage collect all unused nix store entries(for the user - home-manager)
-  # https://github.com/NixOS/nix/issues/8508
-  nix-collect-garbage --delete-older-than 3d
+    @just --list
+    @echo ""
+    @just --list nix --list-heading $'Nix submodule recipes:\n'
 
 # List all generations of the system profile
 [group('nix')]

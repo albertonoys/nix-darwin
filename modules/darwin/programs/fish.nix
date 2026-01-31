@@ -83,25 +83,25 @@
       nix-update = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        just update switch
+        just nix::update nix::switch
         cd $current_dir
       '';
       nix-apply-config = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        just apply
+        just nix apply
         cd $current_dir
       '';
       nix-clean = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        just gc
+        just nix gc
         cd $current_dir
       '';
       nix-upgrade = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        just upgrade
+        just nix upgrade
         cd $current_dir
       '';
     };
