@@ -14,15 +14,22 @@
         source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
       end
 
-      # Setup editor
+      # pyenv
+      if type -q pyenv
+        set -Ux PYENV_ROOT $HOME/.pyenv
+        fish_add_path $PYENV_ROOT/bin
+        fish_add_path $PYENV_ROOT/shims
+        pyenv init - | source
+      end
+
+      # Editor
       set -x EDITOR "nvim"
 
-      # Setup Homebrew
+      # Homebrew
       eval (/opt/homebrew/bin/brew shellenv)
 
       fish_add_path ~/.local/bin
       fish_add_path ~/bin
-      fish_add_path ~/Library/Python/3.9/bin/
 
       # Setup Java (prefer Homebrew JDK 17 if available, else fallback to Nix)
       set -l brew_java_home ""
@@ -76,19 +83,25 @@
       nix-update = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        nix flake update && nix run .#build-switch
+        just update switch
         cd $current_dir
       '';
       nix-apply-config = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        nix run .#build-switch-fast
+        just apply
         cd $current_dir
       '';
       nix-clean = ''
         set -l current_dir (pwd)
         cd ~/repos/nix
-        nix-collect-garbage --delete-older-than 3d
+        just gc
+        cd $current_dir
+      '';
+      nix-upgrade = ''
+        set -l current_dir (pwd)
+        cd ~/repos/nix
+        just upgrade
         cd $current_dir
       '';
     };

@@ -10,26 +10,36 @@ default:
 #
 ############################################################################
 
+alias up := upgrade
+
 # Update all the flake inputs
 [group('nix')]
-up:
+update:
   nix flake update
-
-# Usage: just upp nixpkgs
-# Update specific input
-[group('nix')]
-upp input:
-  nix flake update {{input}}
 
 # .#build-switch
 [group('nix')]
-switch-only:
+switch:
     nix run .#build-switch
+
+# Only apply config changes, no updating
+[group('nix')]
+apply:
+    nix run .#build-switch-fast
 
 # Update flake && .#build-switch && gc
 [group('nix')]
 upgrade:
-    nix flake update && nix run .#build-switch && nix-collect-garbage --delete-older-than 3d
+    @just update && just switch && just gc
+
+# Garbage collect all unused nix store entries
+[group('nix')]
+gc:
+  # garbage collect all unused nix store entries(system-wide)
+  sudo nix-collect-garbage --delete-older-than 3d
+  # garbage collect all unused nix store entries(for the user - home-manager)
+  # https://github.com/NixOS/nix/issues/8508
+  nix-collect-garbage --delete-older-than 3d
 
 # List all generations of the system profile
 [group('nix')]
@@ -46,15 +56,6 @@ repl:
 [group('nix')]
 clean:
   sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 3d
-
-# Garbage collect all unused nix store entries
-[group('nix')]
-gc:
-  # garbage collect all unused nix store entries(system-wide)
-  sudo nix-collect-garbage --delete-older-than 3d
-  # garbage collect all unused nix store entries(for the user - home-manager)
-  # https://github.com/NixOS/nix/issues/8508
-  nix-collect-garbage --delete-older-than 3d
 
 # Show all the auto gc roots in the nix store
 [group('nix')]
