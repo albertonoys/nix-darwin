@@ -20,7 +20,7 @@ history:
 repl:
   nix repl -f flake:nixpkgs
 
-# remove all generations older than 7 days
+# remove all generations older than 3 days
 # on darwin, you may need to switch to root user to run this command
 [group('nix')]
 clean:

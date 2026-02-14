@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  fish-tide,
   ...
 }: {
   programs.fish = {
@@ -22,9 +23,6 @@
         pyenv init - | source
       end
 
-      # Editor
-      set -x EDITOR "nvim"
-
       # Homebrew
       eval (/opt/homebrew/bin/brew shellenv)
 
@@ -42,11 +40,6 @@
         set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
       end
       fish_add_path $JAVA_HOME/bin
-
-      # Zoxide (better cd)
-      if command -v zoxide > /dev/null
-        zoxide init fish | source
-      end
 
       # Abbreviation: cd -> z (zoxide)
       abbr -a cd z
@@ -81,39 +74,22 @@
         nix-shell --packages $argv
       '';
       nix-update = ''
-        set -l current_dir (pwd)
-        cd ~/repos/nix
-        just nix::update nix::switch
-        cd $current_dir
+        fish -c "cd ~/repos/nix && just nix::update nix::switch"
       '';
       nix-apply-config = ''
-        set -l current_dir (pwd)
-        cd ~/repos/nix
-        just nix apply
-        cd $current_dir
+        fish -c "cd ~/repos/nix && just nix::apply"
       '';
       nix-clean = ''
-        set -l current_dir (pwd)
-        cd ~/repos/nix
-        just nix gc
-        cd $current_dir
+        fish -c "cd ~/repos/nix && just nix::gc"
       '';
       nix-upgrade = ''
-        set -l current_dir (pwd)
-        cd ~/repos/nix
-        just nix upgrade
-        cd $current_dir
+        fish -c "cd ~/repos/nix && just nix::upgrade"
       '';
     };
     plugins = [
       {
         name = "tide";
-        src = pkgs.fetchFromGitHub {
-          owner = "IlanCosman";
-          repo = "tide";
-          rev = "a34b0c2809f665e854d6813dd4b052c1b32a32b4";
-          sha256 = "sha256-ZyEk/WoxdX5Fr2kXRERQS1U1QHH3oVSyBQvlwYnEYyc=";
-        };
+        src = fish-tide;
       }
       {
         name = "done";

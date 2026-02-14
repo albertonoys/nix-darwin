@@ -1,4 +1,4 @@
-_: let
+let
   # Helper function to create a cask with default greedy = true
   makeCask = name: {
     inherit name;

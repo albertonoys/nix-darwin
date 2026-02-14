@@ -17,7 +17,8 @@
     package = pkgs.nix;
     settings = {
       experimental-features = "nix-command flakes";
-      auto-optimise-store = false;
+      auto-optimise-store = true;
+      max-jobs = "auto";
       download-buffer-size = 1073741824;
     };
   };
@@ -37,7 +38,7 @@
 
   system = {
     stateVersion = 5;
-    primaryUser = "noys";
+    primaryUser = username;
     checks.verifyNixPath = false;
     activationScripts.extraActivation.text = ''
       # activateSettings -u will reload the settings from the database and apply them to the current session,

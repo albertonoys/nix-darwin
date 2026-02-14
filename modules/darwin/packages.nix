@@ -1,7 +1,6 @@
 {pkgs}:
 with pkgs; [
   # Shell & CLI tools
-  fish
   delta
   gdu
   gitleaks

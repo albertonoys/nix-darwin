@@ -4,6 +4,7 @@
   lib,
   inputs,
   home-manager,
+  fish-tide,
   name,
   useremail,
   username,
@@ -34,8 +35,8 @@
       autoUpdate = builtins.getEnv "HOMEBREW_UPDATE" == "1";
       upgrade = builtins.getEnv "HOMEBREW_UPGRADE" == "1";
     };
-    casks = (pkgs.callPackage ./homebrew.nix {}).casks;
-    brews = (pkgs.callPackage ./homebrew.nix {}).brews;
+    casks = (import ./homebrew.nix).casks;
+    brews = (import ./homebrew.nix).brews;
     # masApps = {};
     taps = builtins.attrNames config.nix-homebrew.taps;
   };
@@ -44,6 +45,7 @@
   home-manager = {
     useGlobalPkgs = true;
     backupFileExtension = "nixbckp";
+    extraSpecialArgs = {inherit fish-tide;};
 
     users.${username} = {
       pkgs,

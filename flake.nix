@@ -74,33 +74,13 @@
         mkShell {
           nativeBuildInputs = with pkgs; [bashInteractive git];
           shellHook = with pkgs; ''
-            export EDITOR=vim
           '';
         };
     };
 
-    mkApp = scriptName: let
-      scriptContent =
-        if scriptName == "apply"
-        then builtins.readFile ./apps/apply
-        else if scriptName == "build"
-        then builtins.readFile ./apps/build
-        else if scriptName == "build-switch"
-        then builtins.readFile ./apps/build-switch
-        else if scriptName == "build-switch-fast"
-        then builtins.readFile ./apps/build-switch-fast
-        else if scriptName == "copy-keys"
-        then builtins.readFile ./apps/copy-keys
-        else if scriptName == "create-keys"
-        then builtins.readFile ./apps/create-keys
-        else if scriptName == "check-keys"
-        then builtins.readFile ./apps/check-keys
-        else if scriptName == "rollback"
-        then builtins.readFile ./apps/rollback
-        else throw "Unknown script: ${scriptName}";
-    in {
+    mkApp = scriptName: {
       type = "app";
-      program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName scriptContent)}/bin/${scriptName}";
+      program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName (builtins.readFile ./apps/${scriptName}))}/bin/${scriptName}";
     };
 
     overlays = [
@@ -129,9 +109,6 @@
       "build" = mkApp "build";
       "build-switch" = mkApp "build-switch";
       "build-switch-fast" = mkApp "build-switch-fast";
-      "copy-keys" = mkApp "copy-keys";
-      "create-keys" = mkApp "create-keys";
-      "check-keys" = mkApp "check-keys";
       "rollback" = mkApp "rollback";
     };
 

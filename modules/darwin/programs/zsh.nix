@@ -28,8 +28,6 @@
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       fi
 
-      export EDITOR="vim"
-
       # Prefer Homebrew JDK 17 when present; fallback to Nix openjdk17
       if command -v /usr/libexec/java_home >/dev/null 2>&1; then
         export JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null || echo "")

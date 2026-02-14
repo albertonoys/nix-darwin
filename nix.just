@@ -26,6 +26,6 @@ upgrade:
 [group('nix')]
 gc:
     # garbage collect all unused nix store entries(system-wide)
-    sudo nix-collect-garbage --delete-older-than 1d
+    sudo nix-collect-garbage --delete-older-than 3d
     # garbage collect all unused nix store entries(for the user - home-manager)
-    nix-collect-garbage --delete-older-than 1d
+    nix-collect-garbage --delete-older-than 3d
