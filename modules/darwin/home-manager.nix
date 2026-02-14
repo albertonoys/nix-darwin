@@ -28,7 +28,7 @@
     enable = true;
     global.autoUpdate = true;
     global.brewfile = true;
-    brewPrefix = "/opt/homebrew/bin";
+    prefix = "/opt/homebrew";
     onActivation = {
       cleanup = "zap";
       autoUpdate = builtins.getEnv "HOMEBREW_UPDATE" == "1";

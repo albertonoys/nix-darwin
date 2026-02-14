@@ -50,44 +50,67 @@ _: let
     "balenaetcher"
     "ticktick"
     "whatsapp"
+    "arduino-ide"
+    "cubicsdr"
+    "gqrx"
   ];
 
   # List of brews
   brews = [
+    # Media & downloads
     "ffmpeg"
-    "topgrade"
-    "pnpm"
     "wget"
     "curl"
-    "aria2"
-    "bettercap"
     "imagemagick"
-    "taskell"
-    "ocrmypdf"
-    "llama.cpp"
-    "esphome"
-    "fx-upscale"
-    "libxmp"
-    "libxmp-lite"
+    "dump1090-mutability"
 
-    # pdf squeeze deps
-    "ghostscript"
-    "pdfcpu"
-    "qpdf"
-    "mupdf"
-    "exiftool"
-    "poppler"
-    "coreutils"
+    # System tools
+    "topgrade"
+    "rsync"
+    "grsync"
     "iperf3"
     "socat"
+
+    # Development
+    "node@22"
+    "pnpm"
     "docker"
     "gcc"
     "gfortran"
     "scipy"
     "pyenv"
     "uv"
+
+    # Security & network
+    "bettercap"
     "hashcat"
     "hcxtools"
+    "aircrack-ng"
+    "qemu"
+
+    # Hardware/embedded (better in brew)
+    "esphome"
+
+    # PDF tools
+    "ghostscript"
+    "pdfcpu"
+    "qpdf"
+    "mupdf"
+    "exiftool"
+    "poppler"
+    "ocrmypdf"
+
+    # Other utilities
+    "taskell"
+    "fx-upscale"
+    "libxmp"
+    "libxmp-lite"
+    "llama.cpp"
+
+    # OpenClaw & AI tools
+    "gemini-cli" # Gemini CLI
+    "openai-whisper" # Local speech-to-text with Whisper CLI
+    # "sag" # ElevenLabs text-to-speech
   ];
 in {
   casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];

@@ -20,10 +20,12 @@ apply:
 # Update flake && .#build-switch && gc
 [group('nix')]
 upgrade:
-    @just nix::update && just nix::switch && just gc
+    @just nix::update nix::switch nix::gc
 
 # Garbage collect all unused nix store entries
 [group('nix')]
 gc:
     # garbage collect all unused nix store entries(system-wide)
-    sudo nix-collect-garbage --delete-older-than 3d
+    sudo nix-collect-garbage --delete-older-than 1d
+    # garbage collect all unused nix store entries(for the user - home-manager)
+    nix-collect-garbage --delete-older-than 1d
