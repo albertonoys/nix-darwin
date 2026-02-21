@@ -67,7 +67,7 @@
           recursive = true;
           executable = true;
         };
-        stateVersion = "24.11";
+        stateVersion = "26.05";
       };
       programs = {
         bat.enable = true;
