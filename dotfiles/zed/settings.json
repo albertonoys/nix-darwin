@@ -32,14 +32,14 @@
     "nil": {
       "initialization_options": {
         "formatting": {
-          "command": ["alejandra"],
+          "command": null,
         },
       },
     },
   },
   "languages": {
     "Nix": {
-      "format_on_save": "off",
+      "format_on_save": "on",
       "language_servers": ["nil", "!..."],
       "formatter": {
         "external": {
