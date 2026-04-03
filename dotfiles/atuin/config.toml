@@ -1,0 +1,19 @@
+dialect = "uk"
+enter_accept = true
+inline_height = 20
+show_preview = true
+style = "compact"
+search_mode = "daemon-fuzzy"
+
+[ai]
+enabled = true
+
+[daemon]
+enabled = true
+autostart = true
+
+[dotfiles]
+enabled = false
+
+[sync]
+records = true

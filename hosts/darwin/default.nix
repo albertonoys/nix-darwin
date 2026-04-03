@@ -1,9 +1,7 @@
 # nix-darwin configuration
 # https://mynixos.com/nix-darwin/options
 {
-  config,
   pkgs,
-  lib,
   username,
   ...
 }: {
@@ -32,7 +30,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; (import ../../modules/darwin/packages.nix {inherit pkgs;});
+  environment.systemPackages = import ../../modules/darwin/packages.nix {inherit pkgs;};
 
   security.pam.services.sudo_local.touchIdAuth = true;
 

@@ -1,9 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  inputs,
-  home-manager,
   fish-tide,
   name,
   useremail,
@@ -62,12 +59,15 @@
       ];
       home = {
         packages = pkgs.callPackage ./packages.nix {};
-        file.".config" = {
-          source = ../../dotfiles;
-          recursive = true;
-          executable = true;
-        };
         stateVersion = "26.05";
+        activation.dotfiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          find "${config.home.homeDirectory}/repos/nix/dotfiles" -type f | while read -r src; do
+            rel="''${src#${config.home.homeDirectory}/repos/nix/dotfiles/}"
+            dest="${config.home.homeDirectory}/.config/''${rel}"
+            mkdir -p "$(dirname "$dest")"
+            ln -sf "$src" "$dest"
+          done
+        '';
       };
       programs = {
         bat.enable = true;
@@ -85,14 +85,9 @@
         neovim.enable = true;
         ripgrep.enable = true;
         zoxide.enable = true;
+        man.generateCaches = false;
 
-        btop = {
-          enable = true;
-          settings = {
-            color_theme = "tokyo-storm";
-            theme_background = false;
-          };
-        };
+        btop.enable = true;
 
         yazi = {
           enable = true;
@@ -104,18 +99,7 @@
           };
         };
 
-        atuin = {
-          enable = true;
-          settings = {
-            dialect = "uk";
-            style = "compact";
-            inline_height = 20;
-            show_preview = true;
-            enter_accept = true;
-            sync.records = true;
-            dotfiles.enabled = false;
-          };
-        };
+        atuin.enable = true;
       };
     };
   };

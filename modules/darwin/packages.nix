@@ -17,6 +17,7 @@ with pkgs; [
   sd
   pv
   rclone
+  nh
 
   # GNU utilities (modern versions to replace macOS defaults)
   gnugrep # Modern grep
@@ -53,6 +54,8 @@ with pkgs; [
   gh-dash # GitHub dashboard in terminal
 
   # Development & Debugging
+  nil # Nix language server
+  nixd
   hexyl # Beautiful hex viewer
   grex # Generate regex from examples
   tokei # Fast code statistics
@@ -87,15 +90,14 @@ with pkgs; [
   meslo-lgs-nf
 
   # MacOS apps
-  yt-dlp
+  # yt-dlp
   appcleaner
   skhd
 
   # Android tools
   apktool
   dex2jar
-  # openjdk17
-  # zulu17
+  openjdk17
   # ghidra
 
   # Security & pentesting

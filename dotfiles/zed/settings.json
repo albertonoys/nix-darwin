@@ -7,35 +7,25 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "assistant": {
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
-    },
-    "version": "2"
-  },
   "theme": "Tokyo Night Storm",
   "vim_mode": false,
-  "features": {
-    "inline_completion_provider": "none"
-  },
   "telemetry": {
     "metrics": false,
-    "diagnostics": false
+    "diagnostics": false,
   },
   "ui_font_size": 16,
   "buffer_font_size": 14,
   "buffer_font_family": "MesloLGS NF",
   "base_keymap": "JetBrains",
   "ui_font_features": {
-    "calt": true
+    "calt": true,
   },
   "confirm_quit": true,
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "inlay_hints": {
-    "enabled": true
+    "enabled": true,
   },
   "show_call_status_icon": false,
   "scroll_beyond_last_line": "off",
-  "scroll_sensitivity": 1.5
+  "scroll_sensitivity": 1.5,
 }

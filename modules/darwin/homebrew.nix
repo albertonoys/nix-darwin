@@ -28,12 +28,12 @@ let
     "todoist-app"
     "zed" # Code editor
     "tempbox"
-    "latest"
     "kitty"
     "telegram"
     "calibre"
     "openscad@snapshot"
 
+    "android-studio"
     "openmtp"
     "cursor" # Code editor
     # "antigravity" # Code editor
@@ -41,18 +41,17 @@ let
     "jordanbaird-ice" # Menu bar hidden bar
     "keyclu" # Keyboard shortcuts
     # "kicad" # PCB design
-    "legcord" # Discord
-    "orbstack" # Docker
+    #"orbstack" # Docker
     "orcaslicer" # 3D slicer (Slic3r)
     "sonic-pi" # Music
-    "upscayl" # Image upscaler
     "mounty"
     "balenaetcher"
     "ticktick"
     "whatsapp"
     "arduino-ide"
-    "cubicsdr"
-    "gqrx"
+    #"cubicsdr"
+    #"gqrx"
+    "brave-browser"
   ];
 
   # List of brews
@@ -86,7 +85,7 @@ let
     "hashcat"
     "hcxtools"
     "aircrack-ng"
-    "qemu"
+    #"qemu"
 
     # Hardware/embedded (better in brew)
     "esphome"
@@ -108,9 +107,11 @@ let
     "llama.cpp"
 
     # OpenClaw & AI tools
-    "gemini-cli" # Gemini CLI
+    #"gemini-cli" # Gemini CLI
     "openai-whisper" # Local speech-to-text with Whisper CLI
     # "sag" # ElevenLabs text-to-speech
+    "worktrunk"
+    "lsusb"
   ];
 in {
   casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];

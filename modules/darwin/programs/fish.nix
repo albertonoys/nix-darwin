@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   fish-tide,
@@ -29,17 +28,31 @@
       fish_add_path ~/.local/bin
       fish_add_path ~/bin
 
-      # Setup Java (prefer Homebrew JDK 17 if available, else fallback to Nix)
-      set -l brew_java_home ""
-      if type -q /usr/libexec/java_home
-        set brew_java_home (/usr/libexec/java_home -v 17 2>/dev/null)
+      # GitHub token for Nix flake updates (avoids API rate limits)
+      # Set as NIX_CONFIG so only nix sees it, not git/gh
+      if security find-generic-password -a nix-github-token -s nix-github-token &>/dev/null
+        set -gx NIX_CONFIG "access-tokens = github.com="(security find-generic-password -a nix-github-token -s nix-github-token -w)
       end
-      if test -n "$brew_java_home"
-        set -x JAVA_HOME "$brew_java_home"
+
+      # Setup Java (prefer Android Studio bundled JDK, then system, then Nix)
+      if test -d "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+        set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+      else if type -q /usr/libexec/java_home
+        set -l sys_java (/usr/libexec/java_home -v 17 2>/dev/null)
+        if test -n "$sys_java"
+          set -x JAVA_HOME "$sys_java"
+        else
+          set -x JAVA_HOME "${pkgs.openjdk17.home}"
+        end
       else
-        set -x JAVA_HOME "${pkgs.openjdk17}/libexec/openjdk"
+        set -x JAVA_HOME "${pkgs.openjdk17.home}"
       end
       fish_add_path $JAVA_HOME/bin
+
+      # Android SDK
+      set -x ANDROID_HOME "$HOME/Library/Android/sdk"
+      fish_add_path $ANDROID_HOME/platform-tools
+      fish_add_path $ANDROID_HOME/tools
 
       # Abbreviation: cd -> z (zoxide)
       abbr -a cd z

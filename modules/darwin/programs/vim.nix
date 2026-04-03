@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   programs.neovim = {
     defaultEditor = true;
     vimAlias = true;

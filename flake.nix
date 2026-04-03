@@ -3,14 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-    # nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -73,7 +70,7 @@
       default = with pkgs;
         mkShell {
           nativeBuildInputs = with pkgs; [bashInteractive git];
-          shellHook = with pkgs; ''
+          shellHook = ''
           '';
         };
     };
@@ -112,13 +109,14 @@
       "rollback" = mkApp "rollback";
     };
 
-    darwinConfigurations.${system} = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.nebula = nix-darwin.lib.darwinSystem {
       inherit system;
       specialArgs = inputs // {inherit pkgs username hostname name useremail;};
       modules = [
         home-manager.darwinModules.home-manager
         {
           nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = overlays;
         }
         nix-homebrew.darwinModules.nix-homebrew
         {
