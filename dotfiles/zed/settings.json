@@ -28,4 +28,25 @@
   "show_call_status_icon": false,
   "scroll_beyond_last_line": "off",
   "scroll_sensitivity": 1.5,
+  "lsp": {
+    "nil": {
+      "initialization_options": {
+        "formatting": {
+          "command": ["alejandra"],
+        },
+      },
+    },
+  },
+  "languages": {
+    "Nix": {
+      "format_on_save": "off",
+      "language_servers": ["nil", "!..."],
+      "formatter": {
+        "external": {
+          "command": "alejandra",
+          "arguments": ["--quiet", "-"],
+        },
+      },
+    },
+  },
 }

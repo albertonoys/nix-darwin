@@ -29,8 +29,8 @@
     prefix = "/opt/homebrew";
     onActivation = {
       cleanup = "zap";
-      autoUpdate = builtins.getEnv "HOMEBREW_UPDATE" == "1";
-      upgrade = builtins.getEnv "HOMEBREW_UPGRADE" == "1";
+      autoUpdate = builtins.getEnv "HOMEBREW_UPDATE" != "0";
+      upgrade = builtins.getEnv "HOMEBREW_UPGRADE" != "0";
     };
     casks = (import ./homebrew.nix).casks;
     brews = (import ./homebrew.nix).brews;
@@ -65,6 +65,7 @@
             rel="''${src#${config.home.homeDirectory}/repos/nix/dotfiles/}"
             dest="${config.home.homeDirectory}/.config/''${rel}"
             mkdir -p "$(dirname "$dest")"
+            [ "$(readlink "$dest" 2>/dev/null)" = "$src" ] && continue
             ln -sf "$src" "$dest"
           done
         '';
@@ -86,9 +87,7 @@
         ripgrep.enable = true;
         zoxide.enable = true;
         man.generateCaches = false;
-
         btop.enable = true;
-
         yazi = {
           enable = true;
           settings = {

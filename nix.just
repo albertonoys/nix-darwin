@@ -1,11 +1,11 @@
 [private]
 default:
-  @just --list nix
+    @just --list nix
 
 # Update all the flake inputs
 [group('nix')]
 update:
-  nix flake update
+    nix flake update
 
 # .#build-switch
 [group('nix')]
@@ -26,6 +26,6 @@ upgrade:
 [group('nix')]
 gc:
     # garbage collect all unused nix store entries(system-wide)
-    sudo nix-collect-garbage --delete-older-than 3d
+    sudo -H nix-collect-garbage --delete-older-than 3d
     # garbage collect all unused nix store entries(for the user - home-manager)
     nix-collect-garbage --delete-older-than 3d

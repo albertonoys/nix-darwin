@@ -163,6 +163,8 @@
     };
   };
 
+  documentation.enable = false;
+
   programs.fish.enable = true;
   environment.variables.EDITOR = "nvim";
   environment.shells = [

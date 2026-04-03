@@ -1,4 +1,4 @@
-hostname := "nebula"
+# hostname := "nebula"
 
 # Most used nix commands
 mod nix
@@ -20,12 +20,11 @@ history:
 repl:
     nix repl -f flake:nixpkgs
 
-# remove all generations older than 3 days
-
-# on darwin, you may need to switch to root user to run this command
+# Remove generations older than 3 days and collect garbage
 [group('nix')]
 clean:
-    sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 3d
+    sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 3d
+    sudo -H nix-collect-garbage --delete-older-than 3d
 
 # Show all the auto gc roots in the nix store
 [group('nix')]
@@ -46,3 +45,7 @@ lint:
       fi
     done < <(fd -e nix)
     [ $errors -eq 0 ] && echo "No issues found."
+
+[group('nix')]
+format:
+    alejandra .

@@ -69,15 +69,21 @@
     in {
       default = with pkgs;
         mkShell {
-          nativeBuildInputs = with pkgs; [bashInteractive git];
-          shellHook = ''
-          '';
+          nativeBuildInputs = with pkgs; [
+            bashInteractive
+            git
+          ];
+          shellHook = "";
         };
     };
 
     mkApp = scriptName: {
       type = "app";
-      program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName (builtins.readFile ./apps/${scriptName}))}/bin/${scriptName}";
+      program = "${
+        (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName (
+          builtins.readFile ./apps/${scriptName}
+        ))
+      }/bin/${scriptName}";
     };
 
     overlays = [
@@ -111,7 +117,17 @@
 
     darwinConfigurations.nebula = nix-darwin.lib.darwinSystem {
       inherit system;
-      specialArgs = inputs // {inherit pkgs username hostname name useremail;};
+      specialArgs =
+        inputs
+        // {
+          inherit
+            pkgs
+            username
+            hostname
+            name
+            useremail
+            ;
+        };
       modules = [
         home-manager.darwinModules.home-manager
         {
