@@ -15,7 +15,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
       inputs.brew-src.follows = "brew-src";

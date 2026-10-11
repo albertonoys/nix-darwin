@@ -42,11 +42,15 @@ brew-upgrade:
 rollback gen="":
     sudo darwin-rebuild {{ if gen == "" { "--rollback" } else { "--switch-generation " + gen } }}
 
-# nh lists every generation on stdout regardless of -q; -qq leaves only errors on stderr.
 # Delete system and user generations older than 1 day, stale gc roots, then collect garbage
 [group('maintenance')]
 gc:
-    nh clean all --keep-since 1d -qq > /dev/null
+    nh clean -q all --keep-since 1d
+
+# Hard-link identical files in the nix store (slow: reads the whole store; run occasionally)
+[group('maintenance')]
+optimise:
+    nix store optimise
 
 # List system generations
 [group('maintenance')]
