@@ -1,33 +1,44 @@
 {
-  "$schema": "https:\/\/schema.linearmouse.app\/0.10.2",
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.11.2",
   "schemes" : [
     {
-      "buttons": {
-        "universalBackForward": true
+      "buttons" : {
+        "universalBackForward" : true
       },
-      "if": {
-        "device": {
-          "category": "mouse",
-          "productID": "0x2022",
-          "productName": "Model O Wireless",
-          "serialNumber": "000000000000",
-          "vendorID": "0x258a"
+      "if" : [
+        {
+          "device" : {
+            "category" : "mouse",
+            "productID" : "0x2022",
+            "productName" : "Model O Wireless",
+            "serialNumber" : "000000000000",
+            "vendorID" : "0x258a"
+          }
+        },
+        {
+          "device" : {
+            "category" : "mouse",
+            "productID" : "0x2011",
+            "productName" : "Model O Wireless",
+            "serialNumber" : "000000000000",
+            "vendorID" : "0x258a"
+          }
         }
+      ],
+      "pointer" : {
+        "acceleration" : 0.9883,
+        "disableAcceleration" : true,
+        "speed" : 0.0748
       },
-      "pointer": {
-        "acceleration": 0.9883,
-        "disableAcceleration": true,
-        "speed": 0.0748
-      },
-      "scrolling": {
+      "scrolling" : {
         "acceleration" : {
           "vertical" : 2.1
         },
-        "distance": {
-          "vertical": "auto"
+        "distance" : {
+          "vertical" : "auto"
         },
         "reverse" : {
-          "vertical": true
+          "vertical" : true
         },
         "speed" : {
           "vertical" : 12.75
@@ -36,34 +47,79 @@
     },
     {
       "buttons" : {
-        "universalBackForward": true
+        "autoScroll" : {
+          "enabled" : false,
+          "mode" : "toggle",
+          "preserveNativeMiddleClick" : true,
+          "speed" : 0.4,
+          "trigger" : {
+            "button" : 2
+          }
+        },
+        "gesture" : {
+          "actions" : {
+            "down" : "appExpose",
+            "left" : "missionControl.spaceLeft",
+            "right" : "missionControl.spaceRight",
+            "up" : "missionControl"
+          },
+          "enabled" : false,
+          "threshold" : 50,
+          "trigger" : {
+            "button" : 3,
+            "command" : false,
+            "control" : false,
+            "option" : false,
+            "shift" : false
+          }
+        },
+        "universalBackForward" : true
       },
-      "if" : {
-        "device" : {
-          "category" : "mouse",
-          "productID": "0x2011",
-          "productName" : "Model O Wireless",
-          "serialNumber" : "000000000000",
-          "vendorID": "0x258a"
+      "if" : [
+        {
+          "device" : {
+            "category" : "mouse",
+            "productID" : "0xd048",
+            "productName" : "Keychron M5 8K",
+            "serialNumber" : "1234567890",
+            "vendorID" : "0x3434"
+          }
+        },
+        {
+          "device" : {
+            "category" : "mouse",
+            "productID" : "0xd028",
+            "productName" : "Keychron Ultra-Link 8K",
+            "vendorID" : "0x3434"
+          }
         }
-      },
-      "pointer": {
-        "acceleration": 0.9883,
-        "disableAcceleration": true,
-        "speed": 0.0748
+      ],
+      "pointer" : {
+        "acceleration" : 2,
+        "disableAcceleration" : true,
+        "redirectsToScroll" : false,
+        "speed" : "unset"
       },
       "scrolling" : {
-        "acceleration": {
-          "vertical": 2.1
+        "acceleration" : {
+          "vertical" : 2.1
         },
         "distance" : {
           "vertical" : "auto"
         },
-        "reverse": {
-          "vertical": true
+        "modifiers" : {
+          "horizontal" : {
+            "command" : {
+              "type" : "auto"
+            }
+          }
+        },
+        "reverse" : {
+          "horizontal" : false,
+          "vertical" : true
         },
         "speed" : {
-          "vertical": 12.75
+          "vertical" : 12.75
         }
       }
     }
