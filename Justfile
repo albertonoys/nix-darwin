@@ -5,9 +5,11 @@
 default:
     @just --list
 
+# `sudo -v` asks for the password up front instead of right before activation.
 # Build and activate the current config (brew installs/removes, never upgrades)
 [group('system')]
 switch:
+    sudo -v
     nh darwin switch .
 
 alias apply := switch
