@@ -5,34 +5,24 @@
       "*.swp"
       "**/.DS_Store"
     ];
-    lfs = {
-      enable = true;
-    };
+    lfs.enable = true;
     settings = {
       init.defaultBranch = "main";
       core = {
         editor = "nvim";
         autocrlf = "input";
-        pager = "delta";
       };
-      pull = {
-        rebase = true;
-      };
-      rebase = {
-        autoStash = true;
-      };
-      interactive = {
-        diffFilter = "delta --color-only";
-      };
-      delta = {
-        navigate = true;
-      };
-      merge = {
-        conflictstyle = "diff3";
-      };
-      diff = {
-        colorMoved = "default";
-      };
+      pull.rebase = true;
+      rebase.autoStash = true;
+      merge.conflictstyle = "zdiff3";
+      diff.colorMoved = "default";
     };
+  };
+
+  # Sets core.pager, interactive.diffFilter and installs delta.
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options.navigate = true;
   };
 }

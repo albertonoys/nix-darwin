@@ -81,7 +81,6 @@
     "gcc"
     "gfortran"
     "scipy"
-    "pyenv"
     "uv"
     "cocoapods"
 

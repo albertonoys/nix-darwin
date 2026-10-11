@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     # Shell & CLI tools
-    delta
     gdu
     gitleaks
     lefthook

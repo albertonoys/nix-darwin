@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{config, ...}: let
   user = config.system.primaryUser;
   home = "/Users/${user}";
 in {
@@ -10,13 +6,10 @@ in {
   system.checks.verifyNixPath = false;
   documentation.enable = false;
 
-  users.users.${user} = {
-    name = user;
-    inherit home;
-    isHidden = false;
-    description = user;
-    shell = lib.mkForce "${home}/.nix-profile/bin/fish";
-  };
+  # home-manager reads the home directory from here. Other user attributes
+  # (shell, description, ...) only apply to users in `users.knownUsers`; the
+  # login shell was set once with `chsh -s ~/.nix-profile/bin/fish`.
+  users.users.${user}.home = home;
 
   networking.computerName = config.networking.hostName;
   system.defaults.smb.NetBIOSName = config.networking.hostName;

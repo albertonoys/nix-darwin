@@ -2,75 +2,46 @@
   config,
   inputs,
   lib,
+  osConfig,
   pkgs,
   ...
 }: {
   programs.fish = {
     enable = true;
+    # Every fish process (scripts, `fish -c`): PATH and env only. Static paths and
+    # variables live in home.sessionPath / home.sessionVariables (shell.nix).
     shellInit = ''
-      if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-      end
-      if test -f /nix/var/nix/profiles/default/etc/profile.d/nix.fish
-        source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
-      end
-
-      # pyenv
-      if type -q pyenv
-        set -Ux PYENV_ROOT $HOME/.pyenv
-        fish_add_path $PYENV_ROOT/bin
-        fish_add_path $PYENV_ROOT/shims
-        pyenv init - | source
-      end
-
-      set -gx NH_SHOW_ACTIVATION_LOGS 1
-      set -gx AGY_CLI_DISABLE_AUTO_UPDATE 1
-
-      # Homebrew
-      eval (/opt/homebrew/bin/brew shellenv)
-
-      fish_add_path ~/.local/bin
-      fish_add_path ~/bin
-      if test -d ~/.bun
-        fish_add_path ~/.bun/bin
-      end
-      # GitHub token for Nix flake updates (avoids API rate limits)
-      # Set as NIX_CONFIG so only nix sees it, not git/gh
+      eval (${osConfig.homebrew.prefix}/bin/brew shellenv)
+    '';
+    interactiveShellInit = ''
+      # GitHub token for Nix flake updates (avoids API rate limits).
+      # Set as NIX_CONFIG so only nix sees it, not git/gh.
       if security find-generic-password -a nix-github-token -s nix-github-token &>/dev/null
         set -gx NIX_CONFIG "access-tokens = github.com="(security find-generic-password -a nix-github-token -s nix-github-token -w)
       end
 
-      # Setup Java (prefer Android Studio bundled JDK, then system, then Nix)
-      if test -d "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-        set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-      else if type -q /usr/libexec/java_home
-        set -l sys_java (/usr/libexec/java_home -v 21 2>/dev/null)
-        if test -n "$sys_java"
-          set -x JAVA_HOME "$sys_java"
-        else
-          set -x JAVA_HOME "${pkgs.zulu21.home}"
-        end
+      # Java: Android Studio's bundled JDK when installed, else nix zulu21.
+      set -l jbr "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+      if test -d $jbr
+        set -gx JAVA_HOME $jbr
       else
-        set -x JAVA_HOME "${pkgs.zulu21.home}"
+        set -gx JAVA_HOME ${pkgs.zulu21.home}
       end
-      fish_add_path $JAVA_HOME/bin
+      set -gxp PATH $JAVA_HOME/bin
 
       # Android SDK
-      if test -d "$HOME/Library/Android/sdk"
-        set -x ANDROID_HOME "$HOME/Library/Android/sdk"
-        fish_add_path $ANDROID_HOME/platform-tools
-        fish_add_path $ANDROID_HOME/tools
+      if test -d $HOME/Library/Android/sdk
+        set -gx ANDROID_HOME $HOME/Library/Android/sdk
+        set -gxp PATH $ANDROID_HOME/platform-tools
       end
 
-      # Abbreviation: cd -> z (zoxide)
-      abbr -a cd z
-    '';
-    interactiveShellInit = ''
-      # Atuin hex feature initialization
       if type -q atuin
         atuin init fish | source
       end
+
+      abbr -a cd z
     '';
+    shellAliases.rld = "source ~/.config/fish/config.fish";
     functions = {
       fish_greeting = lib.mkDefault "";
       bind_bang = ''
@@ -97,20 +68,21 @@
       hf = ''
         eval (history | fzf -i)
       '';
+      # shell foo bar -> nix shell nixpkgs#foo nixpkgs#bar
       shell = ''
-        nix-shell --packages $argv
+        nix shell (string replace -r '^' 'nixpkgs#' -- $argv)
       '';
       nix-update = ''
-        fish -c "cd ${config.my.repoDir} && just nix::update nix::switch"
+        just -f ${config.my.repoDir}/Justfile nix::update nix::switch
       '';
       nix-apply-config = ''
-        fish -c "cd ${config.my.repoDir} && just nix::apply"
+        just -f ${config.my.repoDir}/Justfile nix::apply
       '';
       nix-clean = ''
-        fish -c "cd ${config.my.repoDir} && just nix::gc"
+        just -f ${config.my.repoDir}/Justfile nix::gc
       '';
       nix-upgrade = ''
-        fish -c "cd ${config.my.repoDir} && just nix::upgrade"
+        just -f ${config.my.repoDir}/Justfile nix::upgrade
       '';
     };
     plugins = [

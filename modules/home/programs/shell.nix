@@ -1,7 +1,18 @@
-{...}: {
+{config, ...}: {
+  # Shared by fish and zsh (via home-manager's session-vars file).
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/bin"
+    "$HOME/.bun/bin"
+  ];
+  home.sessionVariables = {
+    NH_FLAKE = config.my.repoDir; # `nh darwin switch` works from any directory
+    NH_SHOW_ACTIVATION_LOGS = "1";
+    AGY_CLI_DISABLE_AUTO_UPDATE = "1";
+  };
+
   home.shellAliases = {
     ".." = "cd ..";
-    rld = "source ~/.config/fish/config.fish";
     aliasList = "alias | bat --paging=never --wrap=never --language=fish";
     ding = "tput bel";
 
@@ -15,11 +26,9 @@
     gs = "git status";
     is = "git status";
 
-    vim = "nvim";
     v = "nvim";
     top = "btop";
 
-    # backup alias for original cd
-    cdd = "builtin cd"; # backup for original cd command
+    cdd = "builtin cd"; # original cd, since fish abbreviates cd to z
   };
 }

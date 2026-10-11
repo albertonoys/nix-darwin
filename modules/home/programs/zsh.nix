@@ -22,35 +22,27 @@
       }
     ];
 
+    # Backup shell (fish is primary). direnv and zoxide hooks come from their
+    # home-manager modules; nix is set up by /etc/zshenv (nix-darwin).
     initContent = lib.mkBefore ''
-      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-      fi
-
-      # Prefer Homebrew JDK 21 when present; fallback to Nix zulu21
-      if command -v /usr/libexec/java_home >/dev/null 2>&1; then
-        export JAVA_HOME=$(/usr/libexec/java_home -v 21 2>/dev/null || echo "")
-      fi
-      if [ -z "$JAVA_HOME" ]; then
+      # Java: Android Studio's bundled JDK when installed, else nix zulu21.
+      jbr="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+      if [[ -d "$jbr" ]]; then
+        export JAVA_HOME="$jbr"
+      else
         export JAVA_HOME="${pkgs.zulu21.home}"
       fi
       export PATH="$JAVA_HOME/bin:$PATH"
+      if [[ -d "$HOME/Library/Android/sdk" ]]; then
+        export ANDROID_HOME="$HOME/Library/Android/sdk"
+        export PATH="$ANDROID_HOME/platform-tools:$PATH"
+      fi
 
-      # direnv
-      eval "$(direnv hook zsh)"
+      # shell foo bar -> nix shell nixpkgs#foo nixpkgs#bar
+      shell() { nix shell "''${@/#/nixpkgs#}"; }
 
-      # nix shortcuts
-      shell() {
-          nix-shell '<nixpkgs>' -A "$1"
-      }
-
-      # ---- Zoxide (better cd) ----
-      eval "$(zoxide init zsh)"
-
-      # Zsh arrow key bindings
-        bindkey '^[[A' history-search-backward
-        bindkey '^[[B' history-search-forward
+      bindkey '^[[A' history-search-backward
+      bindkey '^[[B' history-search-forward
     '';
   };
 }
