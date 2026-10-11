@@ -33,7 +33,9 @@ Justfile                everyday commands
 
 - CLI tools: nixpkgs, in `modules/home/packages.nix`.
 - GUI apps: Homebrew casks, in `modules/darwin/homebrew.nix`.
-- Homebrew formulae: only when nixpkgs lacks or breaks a tool on darwin.
+- Homebrew formulae: only when nixpkgs lacks or breaks a tool on darwin, another
+  brew already depends on it, or it moves fast and benefits from brew bottles.
+  Say why in a trailing comment.
 - App config files: `dotfiles/<app>/`, linked file by file into `~/.config/<app>/`.
   nvim is linked as a whole directory.
 

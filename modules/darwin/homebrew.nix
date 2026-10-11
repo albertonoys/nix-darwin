@@ -10,118 +10,115 @@
 
   # GUI apps
   casks = [
-    # Essentials
-    "bambu-studio" # 3D slicer
-    "discord"
-    "ghostty"
+    # Browsers
+    "brave-browser"
     "google-chrome"
-    "iina" # Video player
-    "kitty"
-    "linearmouse" # Mouse
-    "localsend"
-    "maccy" # Clipboard manager
-    "obsidian"
-    "openscad@snapshot"
-    "raycast" # Launcher
-    "rectangle" # Window manager
-    "shottr" # Screenshot tool with blur/pixelate
+
+    # Chat
+    "beeper" # Matrix-bridged inbox for every chat app
+    "discord"
     "telegram"
-    "todoist-app"
+    "whatsapp"
+
+    # Terminals & editors
+    "ghostty" # Terminal
+    "kitty" # Terminal
+    "markedit" # Markdown editor
+    "obsidian" # Notes
     "zed" # Code editor
 
-    # Everything else
-    "agentsview"
-    "android-platform-tools"
-    "android-studio"
-    "antigravity"
-    "antigravity-cli"
-    "antigravity-ide"
-    "beeper"
-    "blip"
-    "brave-browser"
-    "clop"
-    "thatsjustcheesy/tap/defaults-edit"
+    # Development
+    "agentsview" # Browse past AI coding sessions
+    "android-studio" # Also provides adb/fastboot via its SDK (on PATH in fish/zsh)
+    "antigravity" # Agent orchestration
+    "antigravity-cli" # Terminal client for antigravity
+    "antigravity-ide" # Agent IDE
+    "docker-desktop"
+
+    # Tasks & productivity
+    "handy" # Speech to text
+    "ticktick" # Tasks
+    "todoist-app" # Tasks
+
+    # Window, keyboard & mouse
+    "hyperkey" # Caps Lock as hyper key
+    "karabiner-elements" # Keyboard remapping
+    "linearmouse" # Mouse acceleration/scroll
+    "middleclick" # Trackpad middle click
+    "raycast" # Launcher
+    "rectangle" # Window manager
+    "abue-ammar/tinycast/tinycast" # Launcher, hotkeys, clipboard history
+
+    # System utilities
+    "clop" # Image/video/clipboard optimiser
+    "thatsjustcheesy/tap/defaults-edit" # GUI for `defaults`
+    "lab421/tap/forel" # Folder-watching file automation
+    "latest" # Shows available app updates
+    "maccy" # Clipboard manager
+    "macpacker" # Archive manager
+    "macusb" # Bootable USB installer maker
+    "puremac" # App uninstaller and cleaner
+    "shottr" # Screenshot tool with blur/pixelate
+    "vorssaint" # Menu bar keep-awake, monitor, volume mixer
+
+    # Files & sharing
+    "blip" # Send files between devices
     "deskflow/tap/deskflow" # Keyboard/mouse sharing
-    "lab421/tap/forel"
-    "handy"
-    "hyperkey"
-    "karabiner-elements"
-    "latest"
-    "macpacker"
-    "macusb"
-    "markedit"
-    "middleclick"
-    "openmtp"
-    "puremac"
-    "rawtherapee"
-    "sonic-pi" # Music
-    "ticktick"
-    "abue-ammar/tinycast/tinycast"
-    "vorssaint"
-    "whatsapp"
+    "localsend" # AirDrop alternative
+    "openmtp" # Android file transfer
+
+    # Media & 3D
+    "bambu-studio" # 3D slicer
+    "iina" # Video player
+    "openscad@snapshot" # Programmable 3D CAD
+    "rawtherapee" # RAW photo editor
+    "sonic-pi" # Live-coded music
   ];
 
-  # CLI tools
+  # CLI tools that nixpkgs lacks or breaks on darwin, that other brews already
+  # pull in, or that move fast enough to want brew's bottles. Everything else
+  # goes in modules/home/packages.nix.
   brews = [
     # Media
-    "ffmpeg"
-    "fx-upscale"
+    "ffmpeg" # Also needed by whisper and ocrmypdf
+    "fx-upscale" # Metal video upscaling (not in nixpkgs)
     "imagemagick"
-    "libxmp"
+    "libxmp" # Module music (MOD/S3M/IT) library
     "libxmp-lite"
 
-    # Network & sync
-    "grsync"
-    "iperf3"
-    "rsync"
-    "socat"
-    "wget"
-
-    # Development
-    "cocoapods"
-    "docker"
-    "gcc"
-    "gfortran"
-    "node"
-    "pnpm"
-    "scipy"
-    "uv"
-    "xcodegen"
-
-    # Security & network
-    "aircrack-ng"
-    "bettercap"
-    "hashcat"
-    "hcxtools"
-
-    # PDF tools
-    "exiftool"
+    # PDF
     "ghostscript"
-    "mupdf"
-    "ocrmypdf"
-    "pdfcpu"
-    "poppler"
-    "potrace"
+    "ocrmypdf" # Add an OCR text layer to scanned PDFs
+    "poppler" # pdftotext, pdfimages, ...
     "qpdf"
 
-    # Android & reverse engineering
-    "jadx"
-    "vineflower"
+    # Development
+    "cocoapods" # iOS dependency manager
+    "node"
+    "pnpm"
+    "uv" # Python, venvs and tools
 
     # AI
-    "llama.cpp"
+    "llama.cpp" # Local LLM inference
     "openai-whisper" # Local speech-to-text
-    "opencode"
-    "rtk"
+    "opencode" # Terminal coding agent
+    "rtk" # Token-saving CLI output proxy for agents
+    "worktrunk" # Git worktrees for parallel agents
+
+    # Security
+    "bettercap" # Network attack/monitoring (broken in nixpkgs)
+    "hcxtools" # WiFi capture conversion (linux-only in nixpkgs)
+
+    # Android & reverse engineering
+    "jadx" # Dex to Java decompiler (nixpkgs drags in a python stack)
+    "vineflower" # Java decompiler (not in nixpkgs)
 
     # System & utilities
-    "bitwarden-cli"
-    "lsusb"
-    "macmon"
-    "mole"
-    "taskell"
-    "topgrade"
-    "worktrunk"
+    "bitwarden-cli" # bw
+    "grsync" # rsync GUI
+    "lsusb" # List USB devices
+    "mole" # Mac cleanup (broken in nixpkgs)
+    "taskell" # Kanban board TUI (not in nixpkgs)
   ];
 
   # Run brew as the primary user, the same way nix-darwin's bundle step does.

@@ -15,6 +15,5 @@ in {
   system.defaults.smb.NetBIOSName = config.networking.hostName;
 
   programs.fish.enable = true;
-  environment.variables.EDITOR = "nvim";
   environment.shells = ["${home}/.nix-profile/bin/fish"];
 }
