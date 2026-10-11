@@ -10,7 +10,8 @@ pre-commit:
   commands:
     gitleaks:
       run: gitleaks git --staged --no-banner -v
-    alejandra:
-      glob: "*.nix"
-      run: alejandra --quiet {staged_files}
+    treefmt:
+      # Same formatters and linters as `nix fmt` / `nix flake check` (treefmt.nix).
+      glob: "*.{nix,lua}"
+      run: nix fmt -- {staged_files}
       stage_fixed: true

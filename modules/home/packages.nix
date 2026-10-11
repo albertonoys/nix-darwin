@@ -62,6 +62,7 @@
     # Development
     alejandra
     ast-grep # Structural search/replace
+    biome # JS/TS/JSON formatter, used by zed
     esphome # ESP32/ESP8266
     grex # Regex from examples
     hexyl # Hex viewer

@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fish-tide = {
       url = "github:IlanCosman/tide/v6.1.1";
       flake = false;
@@ -52,21 +57,29 @@
   };
 
   outputs = inputs @ {
+    self,
     nixpkgs,
     nix-darwin,
+    treefmt-nix,
     ...
   }: let
     pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+    treefmt = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
   in {
     darwinConfigurations.nebula = nix-darwin.lib.darwinSystem {
       specialArgs = {inherit inputs;};
       modules = [./hosts/nebula];
     };
 
-    devShells.aarch64-darwin.default = pkgs.mkShell {
-      packages = [pkgs.bashInteractive pkgs.git];
+    formatter.aarch64-darwin = treefmt.config.build.wrapper;
+
+    checks.aarch64-darwin = {
+      formatting = treefmt.config.build.check self;
+      darwin = self.darwinConfigurations.nebula.system;
     };
 
-    formatter.aarch64-darwin = pkgs.alejandra;
+    devShells.aarch64-darwin.default = pkgs.mkShell {
+      packages = [treefmt.config.build.wrapper pkgs.just pkgs.nh];
+    };
   };
 }
