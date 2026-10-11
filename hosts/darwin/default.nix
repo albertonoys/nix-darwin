@@ -25,35 +25,16 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  # TEMP: passwordless sudo while docked with the lid closed (no Touch ID).
-  # Remove this block once back to normal; it is full NOPASSWD: ALL.
+  # Passwordless sudo only for what `darwin-rebuild switch` shells out to, so
+  # rebuilds work unattended (e.g. docked with the lid closed, no Touch ID).
+  # Homebrew cask upgrades that ship .pkg installers need installer/pkgutil. If
+  # a cask still prompts, find the binary next to its `Upgrading <cask>` line
+  # and add it here.
   security.sudo.extraConfig = ''
-    ${username} ALL=(ALL) NOPASSWD: ALL
+    ${username} ALL=(ALL) NOPASSWD: /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings
+    ${username} ALL=(ALL) NOPASSWD: /usr/sbin/installer
+    ${username} ALL=(ALL) NOPASSWD: /usr/bin/pkgutil
   '';
-
-  # # Allow `nix run .#build-switch` to run unattended: grant passwordless sudo
-  # # for the nix-darwin activation command and the privileged binaries Homebrew
-  # # shells out to when *upgrading* casks that ship .pkg installers or write to
-  # # protected locations. Scoped to specific binaries rather than `NOPASSWD: ALL`
-  # # to keep the blast radius small.
-  # security.sudo.extraConfig = ''
-  #   # nix-darwin activation
-  #   ${username} ALL=(ALL) NOPASSWD: /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings
-  #   # Homebrew cask upgrades that require elevation. Minimal set: the .pkg
-  #   # runner and pkgutil cover most casks. If a cask still prompts, find the
-  #   # `Upgrading <cask>` line it sits next to, identify the binary, and
-  #   # uncomment the matching line (or add a new one) below.
-  #   ${username} ALL=(ALL) NOPASSWD: /usr/sbin/installer
-  #   ${username} ALL=(ALL) NOPASSWD: /usr/bin/pkgutil
-  #   # ${username} ALL=(ALL) NOPASSWD: /bin/cp
-  #   # ${username} ALL=(ALL) NOPASSWD: /bin/rm
-  #   # ${username} ALL=(ALL) NOPASSWD: /bin/mv
-  #   # ${username} ALL=(ALL) NOPASSWD: /usr/bin/touch
-  #   # ${username} ALL=(ALL) NOPASSWD: /usr/bin/xattr
-  #   # ${username} ALL=(ALL) NOPASSWD: /usr/sbin/chown
-  #   # ${username} ALL=(ALL) NOPASSWD: /bin/chmod
-  #   # ${username} ALL=(ALL) NOPASSWD: /bin/mkdir
-  # '';
 
   system = {
     stateVersion = 5;
