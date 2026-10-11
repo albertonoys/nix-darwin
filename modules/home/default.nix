@@ -22,6 +22,10 @@
 
   config = {
     home.stateVersion = "26.05";
+    # Skips the home-configuration.nix(5) man page, whose options.json build
+    # triggers a "builtins.derivation ... without a proper context" warning on
+    # every evaluation. Option docs: https://home-manager-options.extranix.com
+    manual.manpages.enable = false;
 
     programs = {
       bat.enable = true;
