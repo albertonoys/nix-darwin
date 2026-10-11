@@ -7,17 +7,24 @@ default:
 update:
     nix flake update
 
-# .#build-switch
+# Build and activate the current config (brew installs/removes, never upgrades)
 [group('nix')]
 switch:
-    nix run .#build-switch
+    nh darwin switch .
 
-# Only apply config changes, no updating
+alias apply := switch
+
+# Build the config without activating it
 [group('nix')]
-apply:
-    nix run .#build-switch-fast
+build:
+    nh darwin build .
 
-# Update flake && .#build-switch && upgrade brew && gc
+# Roll back to the previous generation, or to GEN if given
+[group('nix')]
+rollback gen="":
+    sudo darwin-rebuild {{ if gen == "" { "--rollback" } else { "--switch-generation " + gen } }}
+
+# Update flake && switch && upgrade brew && gc
 [group('nix')]
 upgrade:
     @just nix::update nix::switch nix::brew-upgrade nix::gc

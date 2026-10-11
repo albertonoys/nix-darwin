@@ -11,8 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
-
     fish-tide = {
       url = "github:IlanCosman/tide/v6.1.1";
       flake = false;
@@ -35,18 +33,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
-    kitty-icon = {
-      url = "github:k0nserv/kitty-icon";
-      flake = false;
-    };
-    # gromgit-fuse = {
-    #   url = "github:gromgit/homebrew-fuse";
-    #   flake = false;
-    # };
     deskflow-tap = {
       url = "github:deskflow/homebrew-tap";
       flake = false;
@@ -68,15 +54,11 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    flake-utils,
     home-manager,
     nix-darwin,
     nix-homebrew,
     homebrew-core,
     homebrew-cask,
-    homebrew-bundle,
-    kitty-icon,
-    # gromgit-fuse,
     deskflow-tap,
     thatsjustcheesy-tap,
     lab421-tap,
@@ -101,47 +83,8 @@
           shellHook = "";
         };
     };
-
-    mkApp = scriptName: {
-      type = "app";
-      program = "${
-        (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName (
-          builtins.readFile ./apps/${scriptName}
-        ))
-      }/bin/${scriptName}";
-    };
-
-    overlays = [
-      (final: prev: {
-        kitty = prev.kitty.overrideAttrs (oldAttrs: {
-          postInstall =
-            (oldAttrs.postInstall or "")
-            + ''
-              mkdir -p $out/Applications/kitty.app/Contents/Resources
-              cp -f ${inputs.kitty-icon}/build/neue_outrun.icns $out/Applications/kitty.app/Contents/Resources/kitty.icns
-            '';
-        });
-        # pipx 1.8.0 tests fail due to whitespace formatting in package specifiers
-        pipx = prev.pipx.overrideAttrs (old: {
-          disabledTests =
-            (old.disabledTests or [])
-            ++ [
-              "test_fix_package_name"
-              "test_parse_specifier_for_metadata"
-            ];
-        });
-      })
-    ];
   in {
     devShells.${system} = devShell;
-
-    apps.${system} = {
-      "apply" = mkApp "apply";
-      "build" = mkApp "build";
-      "build-switch" = mkApp "build-switch";
-      "build-switch-fast" = mkApp "build-switch-fast";
-      "rollback" = mkApp "rollback";
-    };
 
     darwinConfigurations.nebula = nix-darwin.lib.darwinSystem {
       inherit system;
@@ -159,7 +102,6 @@
         home-manager.darwinModules.home-manager
         {
           nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = overlays;
         }
         nix-homebrew.darwinModules.nix-homebrew
         {
@@ -171,8 +113,6 @@
             taps = {
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
-              "homebrew/homebrew-bundle" = homebrew-bundle;
-              # "gromgit/homebrew-fuse" = gromgit-fuse;
               "deskflow/homebrew-tap" = deskflow-tap;
               "thatsjustcheesy/homebrew-tap" = thatsjustcheesy-tap;
               "lab421/homebrew-tap" = lab421-tap;

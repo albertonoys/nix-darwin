@@ -50,24 +50,6 @@
         "type": "github"
       }
     },
-    "flake-utils": {
-      "inputs": {
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -86,22 +68,6 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "homebrew-bundle": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1745335228,
-        "narHash": "sha256-TIKR2UgtyUmHLNZp255/vLs+1I10hXe+sciMEbAGFwE=",
-        "owner": "homebrew",
-        "repo": "homebrew-bundle",
-        "rev": "a3265c84b232e13048ecbf6fc18a2eedfadbeb08",
-        "type": "github"
-      },
-      "original": {
-        "owner": "homebrew",
-        "repo": "homebrew-bundle",
         "type": "github"
       }
     },
@@ -134,22 +100,6 @@
       "original": {
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "type": "github"
-      }
-    },
-    "kitty-icon": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696432667,
-        "narHash": "sha256-AXU1KOXaEiAMTkgkR+yVc8g4FZq8TqXj9imswCHhNKc=",
-        "owner": "k0nserv",
-        "repo": "kitty-icon",
-        "rev": "7f631a61bcbdfb268cdf1c97992a5c077beec9d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "k0nserv",
-        "repo": "kitty-icon",
         "type": "github"
       }
     },
@@ -231,33 +181,15 @@
         "brew-src": "brew-src",
         "deskflow-tap": "deskflow-tap",
         "fish-tide": "fish-tide",
-        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
-        "kitty-icon": "kitty-icon",
         "lab421-tap": "lab421-tap",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
         "thatsjustcheesy-tap": "thatsjustcheesy-tap",
         "tinycast-tap": "tinycast-tap"
-      }
-    },
-    "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
       }
     },
     "thatsjustcheesy-tap": {

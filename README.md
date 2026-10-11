@@ -4,7 +4,6 @@ NixOS configuration (based on [nixos-config](https://github.com/divnix/nixos-con
 
 ## Directory Structure
 
-- `apps/`: Scripts for building and managing the system.
 - `hosts/`: Host-specific configurations.
 - `modules/`:
   - `darwin/`: MacOS-specific configurations.
@@ -17,12 +16,18 @@ NixOS configuration (based on [nixos-config](https://github.com/divnix/nixos-con
 
 ### Building
 
-```bash
-nix run .#build
+```fish
+just nix::build
 ```
 
 ### Switching
 
-```bash
-nix run .#build-switch
+```fish
+just nix::switch
+```
+
+First run on a new Mac (before `nh`/`just` exist):
+
+```fish
+sudo nix run nix-darwin -- switch --flake .#nebula
 ```
