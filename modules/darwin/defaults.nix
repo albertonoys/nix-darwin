@@ -1,44 +1,5 @@
-# nix-darwin configuration
-# https://mynixos.com/nix-darwin/options
 {
-  pkgs,
-  username,
-  ...
-}: {
-  imports = [
-    ../../modules/darwin/home-manager.nix
-  ];
-
-  # Determinate Nix manages the daemon and /etc/nix/nix.conf, so nix-darwin's
-  # nix module must stay off (and `nix.settings` would be ignored). Extra
-  # settings go in nix.custom.conf, which nix.conf `!include`s.
-  nix.enable = false;
-  environment.etc."nix/nix.custom.conf" = {
-    text = ''
-      trusted-users = root ${username}
-      download-buffer-size = 1073741824
-    '';
-    # Hash of the stub the Determinate installer writes, so nix-darwin can take it over.
-    knownSha256Hashes = ["3bd68ef979a42070a44f8d82c205cfd8e8cca425d91253ec2c10a88179bb34aa"];
-  };
-
-  security.pam.services.sudo_local.touchIdAuth = true;
-
-  # Passwordless sudo only for what `darwin-rebuild switch` shells out to, so
-  # rebuilds work unattended (e.g. docked with the lid closed, no Touch ID).
-  # Homebrew cask upgrades that ship .pkg installers need installer/pkgutil. If
-  # a cask still prompts, find the binary next to its `Upgrading <cask>` line
-  # and add it here.
-  security.sudo.extraConfig = ''
-    ${username} ALL=(ALL) NOPASSWD: /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings
-    ${username} ALL=(ALL) NOPASSWD: /usr/sbin/installer
-    ${username} ALL=(ALL) NOPASSWD: /usr/bin/pkgutil
-  '';
-
   system = {
-    stateVersion = 5;
-    primaryUser = username;
-    checks.verifyNixPath = false;
     activationScripts.extraActivation.text = ''
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
@@ -143,28 +104,5 @@
         "com.apple.ImageCapture".disableHotPlug = true;
       };
     };
-  };
-
-  documentation.enable = false;
-
-  programs.fish.enable = true;
-  environment.variables.EDITOR = "nvim";
-  environment.shells = [
-    "/Users/${username}/.nix-profile/bin/fish"
-  ];
-
-  # Fonts
-  fonts = {
-    packages = with pkgs; [
-      # icon fonts
-      material-design-icons
-      font-awesome
-
-      # nerdfonts
-      nerd-fonts.symbols-only
-      nerd-fonts.fira-code
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.iosevka
-    ];
   };
 }

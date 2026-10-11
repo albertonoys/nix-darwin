@@ -52,80 +52,21 @@
   };
 
   outputs = inputs @ {
-    self,
     nixpkgs,
-    home-manager,
     nix-darwin,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
-    deskflow-tap,
-    thatsjustcheesy-tap,
-    lab421-tap,
-    tinycast-tap,
     ...
   }: let
-    system = "aarch64-darwin";
-    username = "noys";
-    name = "Alberto Noys";
-    useremail = "albertonoys@gmail.com";
-    hostname = "nebula";
-
-    devShell = let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      default = with pkgs;
-        mkShell {
-          nativeBuildInputs = with pkgs; [
-            bashInteractive
-            git
-          ];
-          shellHook = "";
-        };
-    };
+    pkgs = nixpkgs.legacyPackages.aarch64-darwin;
   in {
-    devShells.${system} = devShell;
-
     darwinConfigurations.nebula = nix-darwin.lib.darwinSystem {
-      inherit system;
-      specialArgs =
-        inputs
-        // {
-          inherit
-            username
-            hostname
-            name
-            useremail
-            ;
-        };
-      modules = [
-        home-manager.darwinModules.home-manager
-        {
-          nixpkgs.config.allowUnfree = true;
-        }
-        nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            enable = true;
-            enableRosetta = true;
-            user = username;
-            group = "admin";
-            taps = {
-              "homebrew/homebrew-core" = homebrew-core;
-              "homebrew/homebrew-cask" = homebrew-cask;
-              "deskflow/homebrew-tap" = deskflow-tap;
-              "thatsjustcheesy/homebrew-tap" = thatsjustcheesy-tap;
-              "lab421/homebrew-tap" = lab421-tap;
-              "abue-ammar/homebrew-tinycast" = tinycast-tap;
-            };
-            mutableTaps = false;
-            autoMigrate = true;
-          };
-        }
-        ./hosts/darwin
-      ];
+      specialArgs = {inherit inputs;};
+      modules = [./hosts/nebula];
     };
 
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    devShells.aarch64-darwin.default = pkgs.mkShell {
+      packages = [pkgs.bashInteractive pkgs.git];
+    };
+
+    formatter.aarch64-darwin = pkgs.alejandra;
   };
 }

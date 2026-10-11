@@ -1,12 +1,15 @@
-let
-  # Helper function to create a cask with default greedy = true
-  makeCask = name: {
-    inherit name;
-    greedy = true;
-  };
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
+  user = config.system.primaryUser;
+  prefix = config.homebrew.prefix;
 
   # GUI apps
-  basicCasks = [
+  casks = [
     # Essentials
     "ghostty"
     "discord"
@@ -117,7 +120,62 @@ let
     "vineflower"
     "jadx"
   ];
+
+  # Run brew as the primary user, the same way nix-darwin's bundle step does.
+  brew = "PATH=${prefix}/bin:$PATH sudo --preserve-env=PATH --user=${user} --set-home env HOMEBREW_NO_AUTO_UPDATE=1 ${prefix}/bin/brew";
 in {
-  casks = map makeCask basicCasks;
-  brews = brews;
+  imports = [inputs.nix-homebrew.darwinModules.nix-homebrew];
+
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    inherit user;
+    group = "admin";
+    taps = {
+      "homebrew/homebrew-core" = inputs.homebrew-core;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      "deskflow/homebrew-tap" = inputs.deskflow-tap;
+      "thatsjustcheesy/homebrew-tap" = inputs.thatsjustcheesy-tap;
+      "lab421/homebrew-tap" = inputs.lab421-tap;
+      "abue-ammar/homebrew-tinycast" = inputs.tinycast-tap;
+    };
+    mutableTaps = false;
+    autoMigrate = true;
+  };
+
+  homebrew = {
+    enable = true;
+    global.autoUpdate = false;
+    global.brewfile = false;
+    prefix = "/opt/homebrew";
+    # Activation only installs and removes. Taps are pinned by flake.lock
+    # (mutableTaps = false), so upgrades happen explicitly via `just nix::upgrade`.
+    onActivation = {
+      cleanup = "uninstall";
+      autoUpdate = false;
+      upgrade = false;
+    };
+    casks =
+      map (name: {
+        inherit name;
+        greedy = true;
+      })
+      casks;
+    inherit brews;
+    taps = builtins.attrNames config.nix-homebrew.taps;
+  };
+
+  # Strip the quarantine flag from apps installed by the casks above (and only
+  # those), so they open without a Gatekeeper prompt. Runs after brew bundle.
+  system.activationScripts.postActivation.text = ''
+    echo >&2 "Stripping quarantine from cask apps..."
+    ${brew} info --json=v2 --cask ${lib.escapeShellArgs casks} 2>/dev/null \
+      | ${lib.getExe pkgs.jq} -r '.casks[].artifacts[] | select(.app) | .app[] | if type == "object" then .target else . end' \
+      | while IFS= read -r app; do
+          case "$app" in /*) path="$app" ;; *) path="/Applications/$app" ;; esac
+          if [ -d "$path" ] && xattr -p com.apple.quarantine "$path" >/dev/null 2>&1; then
+            xattr -dr com.apple.quarantine "$path" || true
+          fi
+        done
+  '';
 }

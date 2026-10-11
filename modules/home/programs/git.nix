@@ -1,8 +1,4 @@
-{
-  name,
-  useremail,
-  ...
-}: {
+{...}: {
   programs.git = {
     enable = true;
     ignores = [
@@ -13,10 +9,6 @@
       enable = true;
     };
     settings = {
-      user = {
-        name = name;
-        email = useremail;
-      };
       init.defaultBranch = "main";
       core = {
         editor = "nvim";

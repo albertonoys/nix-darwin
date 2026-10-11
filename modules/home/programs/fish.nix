@@ -1,7 +1,8 @@
 {
-  pkgs,
+  config,
+  inputs,
   lib,
-  fish-tide,
+  pkgs,
   ...
 }: {
   programs.fish = {
@@ -100,22 +101,22 @@
         nix-shell --packages $argv
       '';
       nix-update = ''
-        fish -c "cd ~/repos/nix && just nix::update nix::switch"
+        fish -c "cd ${config.my.repoDir} && just nix::update nix::switch"
       '';
       nix-apply-config = ''
-        fish -c "cd ~/repos/nix && just nix::apply"
+        fish -c "cd ${config.my.repoDir} && just nix::apply"
       '';
       nix-clean = ''
-        fish -c "cd ~/repos/nix && just nix::gc"
+        fish -c "cd ${config.my.repoDir} && just nix::gc"
       '';
       nix-upgrade = ''
-        fish -c "cd ~/repos/nix && just nix::upgrade"
+        fish -c "cd ${config.my.repoDir} && just nix::upgrade"
       '';
     };
     plugins = [
       {
         name = "tide";
-        src = fish-tide;
+        src = inputs.fish-tide;
       }
       {
         name = "done";
