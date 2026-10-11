@@ -22,8 +22,6 @@
     knownSha256Hashes = ["3bd68ef979a42070a44f8d82c205cfd8e8cca425d91253ec2c10a88179bb34aa"];
   };
 
-  environment.systemPackages = import ../../modules/darwin/packages.nix {inherit pkgs;};
-
   security.pam.services.sudo_local.touchIdAuth = true;
 
   # Passwordless sudo only for what `darwin-rebuild switch` shells out to, so

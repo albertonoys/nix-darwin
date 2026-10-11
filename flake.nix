@@ -132,12 +132,6 @@
         });
       })
     ];
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = overlays;
-    };
   in {
     devShells.${system} = devShell;
 
@@ -155,7 +149,6 @@
         inputs
         // {
           inherit
-            pkgs
             username
             hostname
             name
@@ -166,9 +159,6 @@
         home-manager.darwinModules.home-manager
         {
           nixpkgs.config.allowUnfree = true;
-          nixpkgs.config.allowBroken = true;
-          nixpkgs.config.allowInsecure = false;
-          nixpkgs.config.allowUnsupportedSystem = true;
           nixpkgs.overlays = overlays;
         }
         nix-homebrew.darwinModules.nix-homebrew

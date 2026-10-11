@@ -53,16 +53,12 @@
   home-manager = {
     useGlobalPkgs = true;
     backupFileExtension = "nixbckp";
-    extraSpecialArgs = {
-      inherit fish-tide;
-      overlayPkgs = pkgs;
-    };
+    extraSpecialArgs = {inherit fish-tide;};
 
     users.${username} = {
       pkgs,
       config,
       lib,
-      overlayPkgs,
       ...
     }: {
       imports = [
@@ -73,7 +69,7 @@
         ./programs/zsh.nix
       ];
       home = {
-        packages = overlayPkgs.callPackage ./packages.nix {};
+        packages = pkgs.callPackage ./packages.nix {};
         stateVersion = "26.05";
         activation.dotfiles = lib.hm.dag.entryAfter ["writeBoundary"] ''
           find "${config.home.homeDirectory}/repos/nix/dotfiles" -type f | while read -r src; do
