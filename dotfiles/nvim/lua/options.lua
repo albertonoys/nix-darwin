@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.keymap",
   callback = function()
     vim.bo.filetype = "devicetree"
-  end
+  end,
 })
 
 -- local o = vim.o
