@@ -10,7 +10,7 @@ let
     middleclick = {args = {no_quarantine = false;};};
   };
 
-  # List of simple cask names
+  # GUI apps
   basicCasks = [
     # Essentials
     "ghostty"
@@ -21,47 +21,75 @@ let
     "localsend"
     "maccy" # Clipboard manager
     "obsidian"
-    "pearcleaner" # Disk cleaner
+    "pearcleaner" # Disk cleaner (unmaintained; using self-built PureMac instead)
+    "shottr" # Screenshot tool with blur/pixelate
     "raycast" # Launcher
     "rectangle" # Window manager
-    "stats" # System monitor
+    #"stats" # System monitor
     "todoist-app"
     "zed" # Code editor
     "tempbox"
     "kitty"
     "telegram"
-    "calibre"
+    # "calibre"
     "openscad@snapshot"
+    "bambu-studio" # 3D slicer
 
     "android-studio"
+    # "flutter"
     "openmtp"
-    "cursor" # Code editor
-    # "antigravity" # Code editor
-    "jellyfin-media-player"
-    "jordanbaird-ice" # Menu bar hidden bar
-    "keyclu" # Keyboard shortcuts
+    # "cursor" # Code editor
+    # "jellyfin-media-player"
+    # "jordanbaird-ice" # Menu bar hidden bar
+    # "keyclu" # Keyboard shortcuts
     # "kicad" # PCB design
-    #"orbstack" # Docker
-    "orcaslicer" # 3D slicer (Slic3r)
+    # "orbstack" # Docker
+    # "orcaslicer" # 3D slicer (Slic3r)
     "sonic-pi" # Music
-    "mounty"
-    "balenaetcher"
+    # "mounty"
+    # "balenaetcher"
     "ticktick"
     "whatsapp"
-    "arduino-ide"
+    # "arduino-ide"
     #"cubicsdr"
     #"gqrx"
     "brave-browser"
+    "hyperkey"
+    "latest"
+    # "gimp"
+    "blip"
+    "karabiner-elements"
+    # "zenmap"
+    # "angry-ip-scanner"
+    "deskflow/tap/deskflow" # Keyboard/mouse sharing
+    "puremac"
+    # "webtorrent"
+    "antigravity"
+    "antigravity-cli"
+    "antigravity-ide"
+    "vorssaint"
+    "beeper"
+    "rawtherapee"
+    # "upscayl"
+    "markedit"
+    "thatsjustcheesy/tap/defaults-edit"
+    "lab421/tap/forel"
+    "agentsview"
+    "macpacker"
+    "macusb"
+    "handy"
+    "clop"
+    "abue-ammar/tinycast/tinycast"
+    "android-platform-tools"
   ];
 
-  # List of brews
+  # CLI tools
   brews = [
     # Media & downloads
     "ffmpeg"
     "wget"
     "curl"
     "imagemagick"
-    "dump1090-mutability"
 
     # System tools
     "topgrade"
@@ -71,7 +99,7 @@ let
     "socat"
 
     # Development
-    "node@22"
+    "node"
     "pnpm"
     "docker"
     "gcc"
@@ -79,6 +107,7 @@ let
     "scipy"
     "pyenv"
     "uv"
+    "cocoapods"
 
     # Security & network
     "bettercap"
@@ -88,7 +117,7 @@ let
     #"qemu"
 
     # Hardware/embedded (better in brew)
-    "esphome"
+    # "esphome"
 
     # PDF tools
     "ghostscript"
@@ -98,6 +127,7 @@ let
     "exiftool"
     "poppler"
     "ocrmypdf"
+    "potrace"
 
     # Other utilities
     "taskell"
@@ -105,13 +135,22 @@ let
     "libxmp"
     "libxmp-lite"
     "llama.cpp"
-
+    "bitwarden-cli"
     # OpenClaw & AI tools
-    #"gemini-cli" # Gemini CLI
+    # "gemini-cli" # Gemini CLI
     "openai-whisper" # Local speech-to-text with Whisper CLI
     # "sag" # ElevenLabs text-to-speech
     "worktrunk"
     "lsusb"
+    "xcodegen"
+    "rtk"
+    "mole"
+    "macmon"
+    "llama.cpp"
+    "opencode"
+    "vineflower"
+    # "openjdk@17"
+    "jadx"
   ];
 in {
   casks = (map makeCask basicCasks) ++ [(makeCask "middleclick" // specialCasks.middleclick)];

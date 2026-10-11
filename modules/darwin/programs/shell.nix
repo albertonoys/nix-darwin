@@ -19,8 +19,8 @@
     v = "nvim";
     top = "btop";
 
-    config-nix = "cursor ~/repos/nix &";
-    c = "cursor . &";
+    # config-nix = "cursor ~/repos/nix &";
+    # c = "cursor . &";
 
     # backup alias for original cd
     cdd = "builtin cd"; # backup for original cd command

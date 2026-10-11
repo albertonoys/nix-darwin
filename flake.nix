@@ -20,7 +20,12 @@
 
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.brew-src.follows = "brew-src";
+    };
+    # Pinned ahead of nix-homebrew's bundled brew; bump when homebrew-core needs newer DSL
+    brew-src = {
+      url = "github:Homebrew/brew/7.0.9";
+      flake = false;
     };
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -38,8 +43,24 @@
       url = "github:k0nserv/kitty-icon";
       flake = false;
     };
-    gromgit-fuse = {
-      url = "github:gromgit/homebrew-fuse";
+    # gromgit-fuse = {
+    #   url = "github:gromgit/homebrew-fuse";
+    #   flake = false;
+    # };
+    deskflow-tap = {
+      url = "github:deskflow/homebrew-tap";
+      flake = false;
+    };
+    thatsjustcheesy-tap = {
+      url = "github:thatsjustcheesy/homebrew-tap";
+      flake = false;
+    };
+    lab421-tap = {
+      url = "github:lab421/homebrew-tap";
+      flake = false;
+    };
+    tinycast-tap = {
+      url = "github:abue-ammar/homebrew-tinycast";
       flake = false;
     };
   };
@@ -55,7 +76,11 @@
     homebrew-cask,
     homebrew-bundle,
     kitty-icon,
-    gromgit-fuse,
+    # gromgit-fuse,
+    deskflow-tap,
+    thatsjustcheesy-tap,
+    lab421-tap,
+    tinycast-tap,
     ...
   }: let
     system = "aarch64-darwin";
@@ -96,6 +121,15 @@
               cp -f ${inputs.kitty-icon}/build/neue_outrun.icns $out/Applications/kitty.app/Contents/Resources/kitty.icns
             '';
         });
+        # pipx 1.8.0 tests fail due to whitespace formatting in package specifiers
+        pipx = prev.pipx.overrideAttrs (old: {
+          disabledTests =
+            (old.disabledTests or [])
+            ++ [
+              "test_fix_package_name"
+              "test_parse_specifier_for_metadata"
+            ];
+        });
       })
     ];
 
@@ -132,6 +166,9 @@
         home-manager.darwinModules.home-manager
         {
           nixpkgs.config.allowUnfree = true;
+          nixpkgs.config.allowBroken = true;
+          nixpkgs.config.allowInsecure = false;
+          nixpkgs.config.allowUnsupportedSystem = true;
           nixpkgs.overlays = overlays;
         }
         nix-homebrew.darwinModules.nix-homebrew
@@ -145,7 +182,11 @@
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
               "homebrew/homebrew-bundle" = homebrew-bundle;
-              "gromgit/homebrew-fuse" = gromgit-fuse;
+              # "gromgit/homebrew-fuse" = gromgit-fuse;
+              "deskflow/homebrew-tap" = deskflow-tap;
+              "thatsjustcheesy/homebrew-tap" = thatsjustcheesy-tap;
+              "lab421/homebrew-tap" = lab421-tap;
+              "abue-ammar/homebrew-tinycast" = tinycast-tap;
             };
             mutableTaps = false;
             autoMigrate = true;

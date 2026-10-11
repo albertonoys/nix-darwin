@@ -22,12 +22,17 @@
         pyenv init - | source
       end
 
+      set -gx NH_SHOW_ACTIVATION_LOGS 1
+      set -gx AGY_CLI_DISABLE_AUTO_UPDATE 1
+
       # Homebrew
       eval (/opt/homebrew/bin/brew shellenv)
 
       fish_add_path ~/.local/bin
       fish_add_path ~/bin
-
+      if test -d ~/.bun
+        fish_add_path ~/.bun/bin
+      end
       # GitHub token for Nix flake updates (avoids API rate limits)
       # Set as NIX_CONFIG so only nix sees it, not git/gh
       if security find-generic-password -a nix-github-token -s nix-github-token &>/dev/null
@@ -38,24 +43,32 @@
       if test -d "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
         set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
       else if type -q /usr/libexec/java_home
-        set -l sys_java (/usr/libexec/java_home -v 17 2>/dev/null)
+        set -l sys_java (/usr/libexec/java_home -v 21 2>/dev/null)
         if test -n "$sys_java"
           set -x JAVA_HOME "$sys_java"
         else
-          set -x JAVA_HOME "${pkgs.openjdk17.home}"
+          set -x JAVA_HOME "${pkgs.zulu21.home}"
         end
       else
-        set -x JAVA_HOME "${pkgs.openjdk17.home}"
+        set -x JAVA_HOME "${pkgs.zulu21.home}"
       end
       fish_add_path $JAVA_HOME/bin
 
       # Android SDK
-      set -x ANDROID_HOME "$HOME/Library/Android/sdk"
-      fish_add_path $ANDROID_HOME/platform-tools
-      fish_add_path $ANDROID_HOME/tools
+      if test -d "$HOME/Library/Android/sdk"
+        set -x ANDROID_HOME "$HOME/Library/Android/sdk"
+        fish_add_path $ANDROID_HOME/platform-tools
+        fish_add_path $ANDROID_HOME/tools
+      end
 
       # Abbreviation: cd -> z (zoxide)
       abbr -a cd z
+    '';
+    interactiveShellInit = ''
+      # Atuin hex feature initialization
+      if type -q atuin
+        atuin init fish | source
+      end
     '';
     functions = {
       fish_greeting = lib.mkDefault "";

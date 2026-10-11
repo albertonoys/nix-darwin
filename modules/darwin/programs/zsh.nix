@@ -28,12 +28,12 @@
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       fi
 
-      # Prefer Homebrew JDK 17 when present; fallback to Nix openjdk17
+      # Prefer Homebrew JDK 21 when present; fallback to Nix zulu21
       if command -v /usr/libexec/java_home >/dev/null 2>&1; then
-        export JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null || echo "")
+        export JAVA_HOME=$(/usr/libexec/java_home -v 21 2>/dev/null || echo "")
       fi
       if [ -z "$JAVA_HOME" ]; then
-        export JAVA_HOME="${pkgs.openjdk17}/libexec/openjdk"
+        export JAVA_HOME="${pkgs.zulu21.home}"
       fi
       export PATH="$JAVA_HOME/bin:$PATH"
 

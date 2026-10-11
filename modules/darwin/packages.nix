@@ -18,6 +18,7 @@ with pkgs; [
   pv
   rclone
   nh
+  tmux
 
   # GNU utilities (modern versions to replace macOS defaults)
   gnugrep # Modern grep
@@ -52,6 +53,7 @@ with pkgs; [
   onefetch # Git repo summary with stats
   git-cliff # Changelog generator
   gh-dash # GitHub dashboard in terminal
+  act
 
   # Development & Debugging
   nil # Nix language server
@@ -59,8 +61,10 @@ with pkgs; [
   hexyl # Beautiful hex viewer
   grex # Generate regex from examples
   tokei # Fast code statistics
-  watchexec # Better file watcher than entr
-  mise # Modern asdf/version manager alternative
+  # watchexec # Better file watcher than entr — disabled: cctools ld crash on aarch64-darwin (nixpkgs#regression)
+  # mise # Modern asdf/version manager alternative
+  esphome # ESPHome tool for ESP32/ESP8266
+  git-filter-repo
 
   # Network & HTTP
   xh # Modern curl/httpie alternative (Rust)
@@ -86,23 +90,28 @@ with pkgs; [
   tio
 
   # Fonts
-  jetbrains-mono
+  #jetbrains-mono
   meslo-lgs-nf
 
   # MacOS apps
   # yt-dlp
   appcleaner
-  skhd
+  # skhd
 
   # Android tools
   apktool
   dex2jar
-  openjdk17
-  # ghidra
+  ghidra
+  zulu21
 
   # Security & pentesting
   dirbuster
   nmap
   ffuf
   gobuster
+  # mkvtoolnix
+  drawio
+  bws
+  yq
+  ncdu
 ]
