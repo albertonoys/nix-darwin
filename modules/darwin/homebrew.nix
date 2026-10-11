@@ -152,7 +152,7 @@ in {
     global.brewfile = false;
     prefix = "/opt/homebrew";
     # Activation only installs and removes. Taps are pinned by flake.lock
-    # (mutableTaps = false), so upgrades happen explicitly via `just nix::upgrade`.
+    # (mutableTaps = false), so upgrades happen explicitly via `just upgrade`.
     onActivation = {
       cleanup = "uninstall";
       autoUpdate = false;

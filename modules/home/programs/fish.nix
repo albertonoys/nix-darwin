@@ -73,16 +73,16 @@
         nix shell (string replace -r '^' 'nixpkgs#' -- $argv)
       '';
       nix-update = ''
-        just -f ${config.my.repoDir}/Justfile nix::update nix::switch
+        just -f ${config.my.repoDir}/Justfile update switch
       '';
       nix-apply-config = ''
-        just -f ${config.my.repoDir}/Justfile nix::apply
+        just -f ${config.my.repoDir}/Justfile switch
       '';
       nix-clean = ''
-        just -f ${config.my.repoDir}/Justfile nix::gc
+        just -f ${config.my.repoDir}/Justfile gc
       '';
       nix-upgrade = ''
-        just -f ${config.my.repoDir}/Justfile nix::upgrade
+        just -f ${config.my.repoDir}/Justfile upgrade
       '';
     };
     plugins = [
