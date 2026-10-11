@@ -16,8 +16,6 @@
     shell = pkgs.lib.mkForce "/Users/${username}/.nix-profile/bin/fish";
   };
 
-  nix.settings.trusted-users = [username];
-
   networking.hostName = hostname;
   networking.computerName = hostname;
   system.defaults.smb.NetBIOSName = hostname;
