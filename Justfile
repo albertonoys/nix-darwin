@@ -42,11 +42,10 @@ brew-upgrade:
 rollback gen="":
     sudo darwin-rebuild {{ if gen == "" { "--rollback" } else { "--switch-generation " + gen } }}
 
-# Delete generations older than 3 days and collect garbage (system and user)
+# Delete system and user generations older than 3 days, stale gc roots, then collect garbage
 [group('maintenance')]
 gc:
-    sudo -H nix-collect-garbage --delete-older-than 3d
-    nix-collect-garbage --delete-older-than 3d
+    nh clean all --keep-since 3d
 
 # List system generations
 [group('maintenance')]
