@@ -53,7 +53,7 @@
         # sets how fast it repeats once it starts.
         KeyRepeat = 3; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
-        ApplePressAndHoldEnabled = true; # holding a letter shows the accent picker instead of repeating it
+        ApplePressAndHoldEnabled = false; # holding a key repeats it (no accent picker)
         "com.apple.swipescrolldirection" = true;
         "com.apple.keyboard.fnState" = false;
         "com.apple.mouse.tapBehavior" = 1;
@@ -88,7 +88,7 @@
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         QuitMenuItem = true;
-        CreateDesktop = false;
+        CreateDesktop = false; # no desktop icons
         FXEnableExtensionChangeWarning = false;
         ShowPathbar = true;
         ShowStatusBar = true;
@@ -114,10 +114,6 @@
           WebKitDeveloperExtras = true;
         };
         "com.apple.finder" = {
-          ShowExternalHardDrivesOnDesktop = true;
-          ShowHardDrivesOnDesktop = true;
-          ShowMountedServersOnDesktop = true;
-          ShowRemovableMediaOnDesktop = true;
           _FXSortFoldersFirst = true;
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
@@ -132,8 +128,6 @@
         };
         "com.apple.WindowManager" = {
           EnableStandardClickToShowDesktop = 0; # clicking the wallpaper does not reveal the desktop
-          StandardHideDesktopIcons = 0; # Show items on desktop
-          HideDesktop = 0; # Do not hide items on desktop & stage manager
           StageManagerHideWidgets = 0;
           StandardHideWidgets = 0;
         };
