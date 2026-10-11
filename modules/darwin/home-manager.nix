@@ -77,7 +77,8 @@
           find /Applications -maxdepth 2 -name "*.app" -mmin -15 -print0 2>/dev/null | xargs -0 xattr -r -d com.apple.quarantine 2>/dev/null || true
         '';
       };
-      xdg.configFile."nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/nix/dotfiles/nvim/init.lua";
+      # Link the whole directory so new lua files and lazy-lock.json updates land in the repo.
+      xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/nix/dotfiles/nvim";
       programs = {
         bat.enable = true;
         bun.enable = true;
