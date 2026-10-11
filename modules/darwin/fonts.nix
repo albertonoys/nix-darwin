@@ -9,5 +9,6 @@
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.iosevka
+    meslo-lgs-nf # powerlevel10k
   ];
 }

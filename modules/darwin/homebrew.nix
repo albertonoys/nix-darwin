@@ -11,113 +11,117 @@
   # GUI apps
   casks = [
     # Essentials
-    "ghostty"
+    "bambu-studio" # 3D slicer
     "discord"
+    "ghostty"
     "google-chrome"
     "iina" # Video player
+    "kitty"
     "linearmouse" # Mouse
     "localsend"
     "maccy" # Clipboard manager
     "obsidian"
-    "shottr" # Screenshot tool with blur/pixelate
+    "openscad@snapshot"
     "raycast" # Launcher
     "rectangle" # Window manager
+    "shottr" # Screenshot tool with blur/pixelate
+    "telegram"
     "todoist-app"
     "zed" # Code editor
-    "kitty"
-    "telegram"
-    "openscad@snapshot"
-    "bambu-studio" # 3D slicer
 
+    # Everything else
+    "agentsview"
+    "android-platform-tools"
     "android-studio"
-    "openmtp"
-    "sonic-pi" # Music
-    "ticktick"
-    "whatsapp"
-    "brave-browser"
-    "hyperkey"
-    "latest"
-    "blip"
-    "karabiner-elements"
-    "deskflow/tap/deskflow" # Keyboard/mouse sharing
-    "puremac"
     "antigravity"
     "antigravity-cli"
     "antigravity-ide"
-    "vorssaint"
     "beeper"
-    "rawtherapee"
-    "markedit"
+    "blip"
+    "brave-browser"
+    "clop"
     "thatsjustcheesy/tap/defaults-edit"
+    "deskflow/tap/deskflow" # Keyboard/mouse sharing
     "lab421/tap/forel"
-    "agentsview"
+    "handy"
+    "hyperkey"
+    "karabiner-elements"
+    "latest"
     "macpacker"
     "macusb"
-    "handy"
-    "clop"
-    "abue-ammar/tinycast/tinycast"
-    "android-platform-tools"
+    "markedit"
     "middleclick"
+    "openmtp"
+    "puremac"
+    "rawtherapee"
+    "sonic-pi" # Music
+    "ticktick"
+    "abue-ammar/tinycast/tinycast"
+    "vorssaint"
+    "whatsapp"
   ];
 
   # CLI tools
   brews = [
-    # Media & downloads
+    # Media
     "ffmpeg"
-    "wget"
+    "fx-upscale"
     "imagemagick"
+    "libxmp"
+    "libxmp-lite"
 
-    # System tools
-    "topgrade"
-    "rsync"
+    # Network & sync
     "grsync"
     "iperf3"
+    "rsync"
     "socat"
+    "wget"
 
     # Development
-    "node"
-    "pnpm"
+    "cocoapods"
     "docker"
     "gcc"
     "gfortran"
+    "node"
+    "pnpm"
     "scipy"
     "uv"
-    "cocoapods"
+    "xcodegen"
 
     # Security & network
+    "aircrack-ng"
     "bettercap"
     "hashcat"
     "hcxtools"
-    "aircrack-ng"
 
     # PDF tools
-    "ghostscript"
-    "pdfcpu"
-    "qpdf"
-    "mupdf"
     "exiftool"
-    "poppler"
+    "ghostscript"
+    "mupdf"
     "ocrmypdf"
+    "pdfcpu"
+    "poppler"
     "potrace"
+    "qpdf"
 
-    # Other utilities
-    "taskell"
-    "fx-upscale"
-    "libxmp"
-    "libxmp-lite"
-    "llama.cpp"
-    "bitwarden-cli"
-    # OpenClaw & AI tools
-    "openai-whisper" # Local speech-to-text with Whisper CLI
-    "worktrunk"
-    "lsusb"
-    "xcodegen"
-    "rtk"
-    "mole"
-    "macmon"
-    "opencode"
-    "vineflower"
+    # Android & reverse engineering
     "jadx"
+    "vineflower"
+
+    # AI
+    "llama.cpp"
+    "openai-whisper" # Local speech-to-text
+    "opencode"
+    "rtk"
+
+    # System & utilities
+    "bitwarden-cli"
+    "lsusb"
+    "macmon"
+    "mole"
+    "taskell"
+    "topgrade"
+    "worktrunk"
   ];
 
   # Run brew as the primary user, the same way nix-darwin's bundle step does.

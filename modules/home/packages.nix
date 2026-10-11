@@ -1,112 +1,99 @@
+# CLI tools from nixpkgs. GUI apps come from Homebrew casks (darwin/homebrew.nix),
+# brew formulae only when nixpkgs lacks or breaks a tool on darwin.
 {pkgs, ...}: {
   home.packages = with pkgs; [
     # Shell & CLI tools
-    gdu
-    gitleaks
-    lefthook
-    tlrc
-    gum
-    alejandra
-    just
-    hyperfine
-    pipx
-    glow
     aria2
     caddy
-    sd
+    glow # Markdown reader TUI
+    gum
+    hyperfine
+    just
+    lefthook
+    mdcat # Render markdown in terminal
+    nh
+    pipx
     pv
     rclone
-    nh
+    sd
+    tlrc
     tmux
+    yq
 
     # GNU utilities (modern versions to replace macOS defaults)
-    gnugrep # Modern grep
-    gnused # Modern sed
-    gawk # Modern awk
-    findutils # Modern find, xargs, locate
-    gnutar # Modern tar
-    gnumake # Modern make
-    bash # Modern bash (macOS ships with 3.2 from 2007)
-    coreutils # Modern ls, cat, cp, mv, etc.
-    diffutils # Modern diff, cmp
+    bash # macOS ships 3.2 from 2007
+    coreutils
+    diffutils
+    findutils
+    gawk
+    gnugrep
+    gnumake
+    gnused
+    gnutar
 
-    # Additional modern CLI replacements
-    dust # Modern du
-    procs # Modern ps
-    duf # Modern df
+    # Modern replacements
+    duf # df
+    dust # du
+    gdu # du TUI
+    ncdu # du TUI
+    procs # ps
 
-    # File & Directory Navigation
+    # Files & navigation
     broot # Interactive tree view with fuzzy search
-    zellij # Modern tmux alternative (Rust-based)
     navi # Interactive cheatsheet tool
-
-    # System Monitoring & Process Management
-    bandwhich # Network bandwidth monitor per process
-    gping # Ping with a graph
-
-    # Search & Text Processing
-    ast-grep # Structural search/replace for code
-
-    # Git Tools
-    gitui # Fast TUI for git (alternative to lazygit)
-    onefetch # Git repo summary with stats
-    git-cliff # Changelog generator
-    gh-dash # GitHub dashboard in terminal
-    act
-
-    # Development & Debugging
-    nil # Nix language server
-    nixd
-    hexyl # Beautiful hex viewer
-    grex # Generate regex from examples
-    tokei # Fast code statistics
-    # watchexec # Better file watcher than entr — disabled: cctools ld crash on aarch64-darwin (nixpkgs#regression)
-    esphome # ESPHome tool for ESP32/ESP8266
-    git-filter-repo
-
-    # Network & HTTP
-    xh # Modern curl/httpie alternative (Rust)
-    doggo # Modern dig alternative
-    trippy # Network traceroute with TUI
-
-    # File Operations
-    renameutils # Interactive bulk rename
     ouch # Unified compression tool
+    renameutils # Interactive bulk rename
 
-    # Misc Productivity
+    # Network
+    bandwhich # Bandwidth per process
+    doggo # dig
+    gping # Ping with a graph
+    trippy # Traceroute TUI
+    xh # curl/httpie
+
+    # Git
+    act # Run GitHub Actions locally
+    gh-dash # GitHub dashboard in terminal
+    git-cliff # Changelog generator
+    git-filter-repo
+    gitleaks
+    onefetch # Repo summary with stats
+
+    # Development
+    alejandra
+    ast-grep # Structural search/replace
+    esphome # ESP32/ESP8266
+    grex # Regex from examples
+    hexyl # Hex viewer
+    nil # Nix language server
+    nixd # Nix language server
+    pastel # Color manipulation
+    silicon # Code screenshots
+    tokei # Code statistics
     vivid # LS_COLORS generator
-    pastel # Color manipulation tool
+    # watchexec # disabled: cctools ld crash on aarch64-darwin
 
-    # Hardware/Serial Communication
-    minicom # Serial terminal (classic but useful)
-    picocom # Lighter serial terminal
-    silicon # Create beautiful code screenshots
-    mdcat # Render markdown in terminal
-
-    # Embedded & hardware tools
+    # Hardware & serial
+    minicom
+    picocom
     stlink-tool
     tio
 
-    # Fonts
-    meslo-lgs-nf
-
-    # MacOS apps
-    appcleaner
-
-    # Android tools
+    # Android & reverse engineering
     apktool
     dex2jar
     ghidra
     zulu21
 
-    # Security & pentesting
+    # Security
+    bws # Bitwarden Secrets Manager CLI
     dirbuster
-    nmap
     ffuf
     gobuster
+    nmap
+
+    # GUI apps that are not casks
+    appcleaner
     drawio
-    bws
-    yq
-    ncdu
   ];
 }
