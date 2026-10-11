@@ -22,16 +22,12 @@ build:
 update:
     nix flake update
 
-# Asks for sudo once up front and keeps it fresh, so later steps never prompt.
+# `sudo -v` asks for the password up front instead of right before activation.
 # Update inputs, switch, upgrade brew, then collect garbage
 [group('system')]
 upgrade:
-    #!/usr/bin/env bash
-    set -euo pipefail
     sudo -v
-    while sudo -n -v 2>/dev/null; do sleep 60; done &
-    trap 'kill $! 2>/dev/null' EXIT
-    just update switch brew-upgrade gc
+    @just update switch brew-upgrade gc
 
 # The leading `-` keeps one failed cask download from aborting `upgrade`.
 # Upgrade all outdated brew formulae (incl. dependencies) and casks
