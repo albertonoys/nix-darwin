@@ -8,10 +8,8 @@ SYSTEM_TYPE="nebula"
 FLAKE_SYSTEM="darwinConfigurations.${SYSTEM_TYPE}.system"
 
 export NIXPKGS_ALLOW_UNFREE=1
-export HOMEBREW_UPDATE=0
-export HOMEBREW_UPGRADE=0
 
-echo "${YELLOW}Starting build (skipping Homebrew updates)...${NC}"
+echo "${YELLOW}Starting build...${NC}"
 nix --extra-experimental-features 'nix-command flakes' build --no-update-lock-file --no-write-lock-file .#$FLAKE_SYSTEM "$@"
 
 echo "${YELLOW}Switching to new generation...${NC}"

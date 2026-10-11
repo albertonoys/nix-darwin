@@ -17,10 +17,15 @@ switch:
 apply:
     nix run .#build-switch-fast
 
-# Update flake && .#build-switch && gc
+# Update flake && .#build-switch && upgrade brew && gc
 [group('nix')]
 upgrade:
-    @just nix::update nix::switch nix::gc
+    @just nix::update nix::switch nix::brew-upgrade nix::gc
+
+# Upgrade all outdated brew formulae (incl. dependencies) and casks
+[group('nix')]
+brew-upgrade:
+    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --greedy
 
 # Garbage collect all unused nix store entries
 [group('nix')]
