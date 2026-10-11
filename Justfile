@@ -26,10 +26,11 @@ update:
 [group('system')]
 upgrade: update switch brew-upgrade gc
 
-# Upgrade all outdated brew formulae (incl. dependencies) and casks
+# Upgrade all outdated brew formulae (incl. dependencies) and casks.
+# A single failed download (flaky cask server) should not abort `upgrade`.
 [group('system')]
 brew-upgrade:
-    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --greedy
+    -HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --greedy
 
 # Roll back to the previous generation, or to GEN if given
 [group('system')]

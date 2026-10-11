@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   osConfig,
   pkgs,
@@ -88,7 +87,7 @@
     plugins = [
       {
         name = "tide";
-        src = inputs.fish-tide;
+        src = pkgs.fishPlugins.tide.src;
       }
       {
         name = "done";

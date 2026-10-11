@@ -20,33 +20,16 @@
     "deskflow-tap": {
       "flake": false,
       "locked": {
-        "lastModified": 1791645529,
-        "narHash": "sha256-ACUMiCftbAB2AuCURnd7ejzhFRjbwozlZYB1j5U60FE=",
+        "lastModified": 1791731501,
+        "narHash": "sha256-37Qk7GQxIvoq1Pj83z7xJ1ZVTfnJc5lp7ewy04h+aMs=",
         "owner": "deskflow",
         "repo": "homebrew-tap",
-        "rev": "1d06eaab5df59d4e15577fa5316036959d10a2b7",
+        "rev": "58205a5ab93c849679459797af5b88fafa38b00c",
         "type": "github"
       },
       "original": {
         "owner": "deskflow",
         "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
-    "fish-tide": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1703712950,
-        "narHash": "sha256-ZyEk/WoxdX5Fr2kXRERQS1U1QHH3oVSyBQvlwYnEYyc=",
-        "owner": "IlanCosman",
-        "repo": "tide",
-        "rev": "a34b0c2809f665e854d6813dd4b052c1b32a32b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "IlanCosman",
-        "ref": "v6.1.1",
-        "repo": "tide",
         "type": "github"
       }
     },
@@ -74,11 +57,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1791666806,
-        "narHash": "sha256-l69wI/5kIiHj+uf7/U05YM4A6Ykg/ZuJiezlnkCfNLM=",
+        "lastModified": 1791734986,
+        "narHash": "sha256-7GpGnzCLLF7L3Chp83piRtN32Jbd8EGhIdKoPACxfqE=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "ede4ccd53f4a87a1ce576947cf459a23bd53d749",
+        "rev": "08e0283117e6b66af0f2d089cba716576e8f1c75",
         "type": "github"
       },
       "original": {
@@ -90,11 +73,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1791668149,
-        "narHash": "sha256-XXOzhrAEBSCg4jT6TNivBx/5ywtS3s8kpUvGcV3a7hA=",
+        "lastModified": 1791735242,
+        "narHash": "sha256-q2OYUbjIcUXX5TtJcvwdOiSsbBB2fGqMIZurkOLV8pI=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "599936cdf4c08ffce6a6bf0d7de02e7c5b90224d",
+        "rev": "c48f06dbc4b46ec386c5740985e9f26feeb1c975",
         "type": "github"
       },
       "original": {
@@ -180,7 +163,6 @@
       "inputs": {
         "brew-src": "brew-src",
         "deskflow-tap": "deskflow-tap",
-        "fish-tide": "fish-tide",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",

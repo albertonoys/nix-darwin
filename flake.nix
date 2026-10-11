@@ -16,16 +16,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fish-tide = {
-      url = "github:IlanCosman/tide/v6.1.1";
-      flake = false;
-    };
-
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
       inputs.brew-src.follows = "brew-src";
     };
-    # Pinned ahead of nix-homebrew's bundled brew; bump when homebrew-core needs newer DSL
+    # Pinned ahead of nix-homebrew's bundled brew (7.0.4 as of 2026-10), which is
+    # too old for current homebrew-core. Drop this input (and the follows above)
+    # once nix-homebrew bundles a brew at least this new.
     brew-src = {
       url = "github:Homebrew/brew/7.0.9";
       flake = false;
