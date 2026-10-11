@@ -22,12 +22,19 @@ build:
 update:
     nix flake update
 
+# Asks for sudo once up front and keeps it fresh, so later steps never prompt.
 # Update inputs, switch, upgrade brew, then collect garbage
 [group('system')]
-upgrade: update switch brew-upgrade gc
+upgrade:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    sudo -v
+    while sudo -n -v 2>/dev/null; do sleep 60; done &
+    trap 'kill $! 2>/dev/null' EXIT
+    just update switch brew-upgrade gc
 
-# Upgrade all outdated brew formulae (incl. dependencies) and casks.
-# A single failed download (flaky cask server) should not abort `upgrade`.
+# The leading `-` keeps one failed cask download from aborting `upgrade`.
+# Upgrade all outdated brew formulae (incl. dependencies) and casks
 [group('system')]
 brew-upgrade:
     -HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --greedy --yes
