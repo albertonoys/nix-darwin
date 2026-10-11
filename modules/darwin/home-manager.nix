@@ -34,7 +34,6 @@
     };
     casks = (import ./homebrew.nix).casks;
     brews = (import ./homebrew.nix).brews;
-    # masApps = {};
     taps = builtins.attrNames config.nix-homebrew.taps;
   };
 

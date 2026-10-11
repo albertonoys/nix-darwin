@@ -62,7 +62,6 @@ with pkgs; [
   grex # Generate regex from examples
   tokei # Fast code statistics
   # watchexec # Better file watcher than entr — disabled: cctools ld crash on aarch64-darwin (nixpkgs#regression)
-  # mise # Modern asdf/version manager alternative
   esphome # ESPHome tool for ESP32/ESP8266
   git-filter-repo
 
@@ -90,13 +89,10 @@ with pkgs; [
   tio
 
   # Fonts
-  #jetbrains-mono
   meslo-lgs-nf
 
   # MacOS apps
-  # yt-dlp
   appcleaner
-  # skhd
 
   # Android tools
   apktool
@@ -109,7 +105,6 @@ with pkgs; [
   nmap
   ffuf
   gobuster
-  # mkvtoolnix
   drawio
   bws
   yq
