@@ -8,7 +8,9 @@ output:
 
 pre-commit:
   commands:
-    gitleaks-detect:
-      run: gitleaks --no-banner detect -v --follow-symlinks {all_files}
+    gitleaks:
+      run: gitleaks git --staged --no-banner -v
     alejandra:
-      run: alejandra {all_files}
+      glob: "*.nix"
+      run: alejandra --quiet {staged_files}
+      stage_fixed: true
